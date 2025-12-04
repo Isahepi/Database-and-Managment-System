@@ -51,7 +51,7 @@ erDiagram
         int id_customer FK
         int id_reservation FK
         int courts_id_court FK
-        int id_coach FK  %% nullable in SQL
+        int id_coach FK
     }
 
     %% Relationships based on foreign keys
