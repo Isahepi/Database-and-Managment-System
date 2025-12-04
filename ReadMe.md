@@ -21,45 +21,46 @@ The staff can also create different reports for the owner such as sum of profit 
 ```mermaid
 erDiagram
     courts {
-        INT id_court PK
-        VARCHAR(45) court_name
-        VARCHAR(45) base_price
+        int id_court PK
+        string court_name
+        string base_price
     }
 
     customer {
-        INT id_customer PK
-        VARCHAR(45) name
-        VARCHAR(45) last_name
-        VARCHAR(45) phone_number
+        int id_customer PK
+        string name
+        string last_name
+        string phone_number
     }
 
     reservation {
-        INT id_reservation PK
-        DATETIME(6) time_start
-        DATETIME(6) end_time
-        DATE date
+        int id_reservation PK
+        datetime time_start
+        datetime end_time
+        date date
     }
 
     coach {
-        INT id_coach PK
-        VARCHAR(45) coach_name
-        VARCHAR(45) coach_last_name
-        VARCHAR(45) coach_phone
+        int id_coach PK
+        string coach_name
+        string coach_last_name
+        string coach_phone
     }
 
     customer_reservation {
-        INT id_customer_reservation PK
-        INT id_customer FK
-        INT id_reservation FK
-        INT courts_id_court FK
-        INT id_coach FK NULL
+        int id_customer_reservation PK
+        int id_customer FK
+        int id_reservation FK
+        int courts_id_court FK
+        int id_coach FK  %% nullable in SQL
     }
 
-    %% Relationships (PK side on the left, FK/join table on the right)
-    customer ||--o{ customer_reservation : "has"
-    reservation ||--o{ customer_reservation : "includes"
-    courts ||--o{ customer_reservation : "booked_on"
-    coach ||--o{ customer_reservation : "coaches"
+    %% Relationships based on foreign keys
+    customer ||--o{ customer_reservation : has
+    reservation ||--o{ customer_reservation : includes
+    courts ||--o{ customer_reservation : booked_on
+    coach ||--o{ customer_reservation : coaches
+
 ```
 ### Database Design Description
 
