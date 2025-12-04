@@ -19,24 +19,30 @@ The staff can also create different reports for the owner such as sum of profit 
 ## Database ER Model
 ```mermaid
 erDiagram
+    %% Relationships based on foreign keys
+    customer ||--o{ customer_reservation : has
+    reservation ||--o{ customer_reservation : includes
+    courts ||--o{ customer_reservation : booked_on
+    coach ||--o{ customer_reservation : coaches
+
     courts {
-        int id_court PK
-        string court_name
-        string base_price
+        +int id_court PK
+        +string court_name
+        +string base_price
     }
 
     customer {
-        int id_customer PK
-        string name
-        string last_name
-        string phone_number
+        +int id_customer PK
+        +string name
+        +string last_name
+        +string phone_number
     }
 
     reservation {
-        int id_reservation PK
-        datetime time_start
-        datetime end_time
-        date date
+        +int id_reservation PK
+        +datetime time_start
+        +datetime end_time
+        +date date
     }
 
     coach {
@@ -53,12 +59,6 @@ erDiagram
         int courts_id_court FK
         int id_coach FK
     }
-
-    %% Relationships based on foreign keys
-    customer ||--o{ customer_reservation : has
-    reservation ||--o{ customer_reservation : includes
-    courts ||--o{ customer_reservation : booked_on
-    coach ||--o{ customer_reservation : coaches
 
 ### Database Design Description
 
