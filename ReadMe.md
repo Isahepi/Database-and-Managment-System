@@ -17,7 +17,6 @@ The staff can also create different reports for the owner such as sum of profit 
 
 
 ## Database ER Model
-
 ```mermaid
 erDiagram
     courts {
@@ -61,7 +60,6 @@ erDiagram
     courts ||--o{ customer_reservation : booked_on
     coach ||--o{ customer_reservation : coaches
 
-```
 ### Database Design Description
 
 
