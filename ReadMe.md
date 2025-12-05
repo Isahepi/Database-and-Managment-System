@@ -26,23 +26,23 @@ erDiagram
     coach ||--o{ customer_reservation : coaches
 
     courts {
-        +int id_court PK
-        +string court_name
-        +string base_price
+        int id_court PK
+        string court_name
+        string base_price
     }
 
     customer {
-        +int id_customer PK
-        +string name
-        +string last_name
-        +string phone_number
+        int id_customer PK
+        string name
+        string last_name
+        string phone_number
     }
 
     reservation {
-        +int id_reservation PK
-        +datetime time_start
-        +datetime end_time
-        +date date
+        int id_reservation PK
+        datetime time_start
+        datetime end_time
+        date date
     }
 
     coach {
@@ -65,9 +65,10 @@ erDiagram
 
 ### Create Tables 
 The following SQL statements create the `coach`, `customer`, `reservation`, `courts` and `customer_reservation` tables in the current database.
-
 -- -----------------------------------------------------
--- Table `db_raquetclub`.`courts`
+-- COURTS Table
+-- Stored the different types fo courts available and
+-- the base price of each court
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_raquetclub`.`courts` (
   `id_court` INT NOT NULL AUTO_INCREMENT,
@@ -82,7 +83,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `db_raquetclub`.`customer`
+-- CUSTOMER TABLE
+-- Store the personal information of the customers
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_raquetclub`.`customer` (
   `id_customer` INT NOT NULL AUTO_INCREMENT,
@@ -98,7 +100,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `db_raquetclub`.`reservation`
+-- RESERVATION TABLE
+-- Store the information of date and time of each reservation
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_raquetclub`.`reservation` (
   `id_reservation` INT NOT NULL AUTO_INCREMENT,
@@ -113,7 +116,8 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `db_raquetclub`.`coach`
+-- COACH TABLE
+-- Store the information of the different coaches from the company
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_raquetclub`.`coach` (
   `id_coach` INT NOT NULL AUTO_INCREMENT,
@@ -129,7 +133,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `db_raquetclub`.`customer_reservation`
+-- CUSTOMER RESERVATION TABLE
+-- Store the custumer with it's specific reservation,
+-- type of court and if using a coach or not
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_raquetclub`.`customer_reservation` (
   `id_customer_reservation` INT NOT NULL AUTO_INCREMENT,
@@ -161,10 +167,8 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+### Insert data
+The following insert data in each table 
 
 
 
