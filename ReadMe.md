@@ -721,6 +721,76 @@ LIMIT 20;
 20 rows in set (0.00 sec)
 ```
 
+---
+
+## Query 6 – `LEFT JOIN` 
+```sql
+-- Query 6:
+
+```
+
+**Sample Output**
+```code
+```
+
+---
+
+## Query 7 – `UPDATE` query (change project status)
+
+```sql
+-- Query 7:
+```
+
+**Sample Output**
+```code
+```
+
+---
+
+## Query 8 – `DELETE` query
+```sql
+-- Query 8:
+```
+
+**Sample Output**
+```code
+```
+
+---
+## Query 9 – Create a `VIEW`
+```sql
+-- Query 9:
+```
+
+**Sample Output**
+---
+## Query 10 – Transaction with `ROLLBACK`
+```sql
+-- Query 10:
+---
+
+**Sample Output**
+```code
+
+```
+
+---
+
+### Reports
+
+### Delete Tables
+
+Drop all tables (and view) from database.
+
+
+```sql
+```
+
+---
+
+### Poster and Presentation
+
+
 
 LEFT JOIN shows the ID of the coaches that are empty while the right join and join do not shows these null in the id_coach, they behave the same.
 
