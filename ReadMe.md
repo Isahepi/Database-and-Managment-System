@@ -59,6 +59,7 @@ erDiagram
         int courts_id_court FK
         int id_coach FK
     }
+```
 
 ### Database Design Description
 
