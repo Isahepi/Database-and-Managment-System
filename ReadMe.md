@@ -66,6 +66,9 @@ erDiagram
 
 ### Create Tables 
 The following SQL statements create the `coach`, `customer`, `reservation`, `courts` and `customer_reservation` tables in the current database.
+
+```sql
+
 -- -----------------------------------------------------
 -- COURTS Table
 -- Stored the different types fo courts available and
@@ -167,9 +170,14 @@ CREATE TABLE IF NOT EXISTS `db_raquetclub`.`customer_reservation` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+```
+
+---
 
 ### Insert data
 The following SQL insert sample data for the `court` (x4), `customer` (x60), and `reservation` (x165), `customer_reservation` (x179), `coach` (x8) tables in the current database.
+
+```sql
 
 -------------------------------------------------------
 -- COURT SAMPLE DATA (20 rows)
@@ -526,15 +534,19 @@ VALUES
 ('Isabella', 'Hughes', '260-555-9012'),
 ('Jonathan', 'Kim', '260-555-4429'),
 ('Emily', 'Stevens', '260-555-7305');
+```
+
+---
 
 ### Queries
 
-Required Queries using `member`, `project`, and `donation` tables.
+Queries using `coach`, `courts`, `customer`,  `customer_reservation`, `reservation` tables.
 
 ---
+
 ## Query 1 – `SELECT` with `ORDER BY` on two columns
 ```sql
--- Query 1: Select customers's reservation and court including if they have a coach or not ordered by id_customer and court type
+-- Query 1: Select customers's reservation including court and if they have a coach or not ordered by id_customer and court type
 
 SELECT id_customer, courts_id_court, id_reservation, id_coach 
 FROM db_raquetclub.customer_reservation
