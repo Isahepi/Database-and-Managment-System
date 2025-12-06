@@ -553,29 +553,176 @@ FROM db_raquetclub.customer_reservation
 ORDER BY id_customer, courts_id_court;
 
 ```
+***Sample Output**
+```code
++-------------+-----------------+----------------+----------+
+| id_customer | courts_id_court | id_reservation | id_coach |
++-------------+-----------------+----------------+----------+
+|           1 |               1 |             62 |        4 |
+|           1 |               3 |             74 |        7 |
+|           1 |               4 |            143 |     NULL |
+|           1 |               4 |             70 |        7 |
+|           2 |               1 |             26 |     NULL |
+|           2 |               2 |             65 |        3 |
+|           2 |               4 |             84 |     NULL |
+|           3 |               1 |            145 |     NULL |
+|           3 |               2 |             19 |        8 |
+|           3 |               3 |            153 |        3 |
+|           4 |               2 |            132 |     NULL |
+|           4 |               3 |             97 |        4 |
+|           5 |               1 |            154 |        8 |
+|           5 |               1 |            145 |     NULL |
+|           5 |               2 |            129 |        6 |
+|           5 |               4 |             47 |     NULL |
+|           6 |               1 |             52 |        2 |
+|           6 |               3 |             19 |        7 |
+|           6 |               4 |            138 |     NULL |
+|           6 |               4 |            158 |        3 |
++-------------+-----------------+----------------+----------+
+20 rows in set (0.00 sec)
+Limit to 20 rows
+```
+
+## Query 2 – `SELECT` with a calculated field (non-aggregate)
+
+```sql
+-- Query 2: Show project goals, including a calculated “thousands” column
+-- Because I was using dates, the time difference is the correcformula to get the difference of time and get the time the customer spent in the court.
 
 SELECT *, timestampdiff( hour ,time_start,end_time) AS "time" FROM db_raquetclub.reservation;
 
-Because I was using dates, the time difference is the correcformula to get the difference of time and get the time the customer spent in the court.
+```
 
-SELECT id_customer, courts_id_court, id_reservation, id_coach FROM db_raquetclub.customer_reservation
-order by id_customer, courts_id_court;
+**Sample Output**
+```code
++----------------+----------------------------+----------------------------+------------+------+
+| id_reservation | time_start                 | end_time                   | date       | time |
++----------------+----------------------------+----------------------------+------------+------+
+|              1 | 2024-07-19 04:38:25.000000 | 2024-07-19 07:03:16.000000 | 2024-07-19 |    2 |
+|              2 | 2024-01-22 09:36:40.000000 | 2024-01-22 11:49:17.000000 | 2024-01-22 |    2 |
+|              3 | 2023-11-25 10:11:23.000000 | 2023-11-25 11:44:37.000000 | 2023-11-25 |    1 |
+|              4 | 2024-02-09 18:15:47.000000 | 2024-02-09 19:23:53.000000 | 2024-02-09 |    1 |
+|              5 | 2023-08-17 18:58:43.000000 | 2023-08-17 21:07:54.000000 | 2023-08-17 |    2 |
+|              6 | 2024-03-02 11:20:46.000000 | 2024-03-02 13:54:19.000000 | 2024-03-02 |    2 |
+|              7 | 2024-12-11 17:33:01.000000 | 2024-12-11 20:14:33.000000 | 2024-12-11 |    2 |
+|              8 | 2024-05-28 16:25:15.000000 | 2024-05-28 18:28:25.000000 | 2024-05-28 |    2 |
+|              9 | 2023-03-08 10:45:26.000000 | 2023-03-08 12:40:46.000000 | 2023-03-08 |    1 |
+|             10 | 2023-02-03 08:35:58.000000 | 2023-02-03 10:12:14.000000 | 2023-02-03 |    1 |
+|             11 | 2025-05-03 11:50:34.000000 | 2025-05-03 13:10:01.000000 | 2025-05-03 |    1 |
+|             12 | 2025-05-20 09:43:52.000000 | 2025-05-20 11:53:32.000000 | 2025-05-20 |    2 |
+|             13 | 2023-10-08 16:34:50.000000 | 2023-10-08 19:30:20.000000 | 2023-10-08 |    2 |
+|             14 | 2023-04-28 12:51:36.000000 | 2023-04-28 14:16:11.000000 | 2023-04-28 |    1 |
+|             15 | 2025-03-27 12:14:47.000000 | 2025-03-27 13:43:14.000000 | 2025-03-27 |    1 |
+|             16 | 2023-07-18 18:33:45.000000 | 2023-07-18 19:40:34.000000 | 2023-07-18 |    1 |
+|             17 | 2023-06-15 08:18:01.000000 | 2023-06-15 09:15:51.000000 | 2023-06-15 |    0 |
+|             18 | 2024-07-27 16:23:10.000000 | 2024-07-27 18:15:37.000000 | 2024-07-27 |    1 |
+|             19 | 2023-06-18 12:43:37.000000 | 2023-06-18 14:45:16.000000 | 2023-06-18 |    2 |
+|             20 | 2025-08-10 10:39:47.000000 | 2025-08-10 12:38:06.000000 | 2025-08-10 |    1 |
++----------------+----------------------------+----------------------------+------------+------+
+20 rows in set (0.00 sec)
+Limit to 20 rows
+```
 
-SELECT *, timestampdiff( hour ,time_start,end_time) AS "time" FROM db_raquetclub.reservation;
+## Query 3 – `SELECT` using a MariaDB function (non-aggregate)
 
-SELECT id_reservation, day(date) AS "Day", month(date) AS "Month", year(date) AS "Year" FROM db_raquetclub.reservation;
+```sql
+-- Query 3:
+SELECT 
+  id_reservation, 
+  day(date) AS "Day", 
+  month(date) AS "Month", 
+  year(date) AS "Year" 
+FROM db_raquetclub.reservation
+LIMIT 20;
+```
 
-SELECT date, COUNT(1) AS "Quantity" FROM db_raquetclub.reservation
-GROUP BY date;
+**Sample Output**
+```code
++----------------+------+-------+------+
+| id_reservation | Day  | Month | Year |
++----------------+------+-------+------+
+|              1 |   19 |     7 | 2024 |
+|              2 |   22 |     1 | 2024 |
+|              3 |   25 |    11 | 2023 |
+|              4 |    9 |     2 | 2024 |
+|              5 |   17 |     8 | 2023 |
+|              6 |    2 |     3 | 2024 |
+|              7 |   11 |    12 | 2024 |
+|              8 |   28 |     5 | 2024 |
+|              9 |    8 |     3 | 2023 |
+|             10 |    3 |     2 | 2023 |
+|             11 |    3 |     5 | 2025 |
+|             12 |   20 |     5 | 2025 |
+|             13 |    8 |    10 | 2023 |
+|             14 |   28 |     4 | 2023 |
+|             15 |   27 |     3 | 2025 |
+|             16 |   18 |     7 | 2023 |
+|             17 |   15 |     6 | 2023 |
+|             18 |   27 |     7 | 2024 |
+|             19 |   18 |     6 | 2023 |
+|             20 |   10 |     8 | 2025 |
++----------------+------+-------+------+
+20 rows in set (0.00 sec)
+```
+
+---
+
+## Query 4 – Aggregation with `GROUP BY` and `HAVING`
 
 SELECT date, COUNT(1) AS "Quantity" FROM db_raquetclub.reservation
 GROUP BY date
 HAVING day(date) = 3;
 
-SELECT a.id_customer, a.id_reservation, a.courts_id_court, CONCAT(b.name, " ", b.last_name) AS "Customer", c.court_name, c.base_price, CONCAT(d.coach_name, " ", d.coach_last_name) AS "Coach" FROM db_raquetclub.customer_reservation AS a 
+## Query 5 – Join of three tables (`member`, `donation`, `project`)
+```sql
+-- Query 5:
+
+SELECT 
+  a.id_customer, 
+  a.id_reservation, 
+  a.courts_id_court, 
+  CONCAT(b.name, " ", b.last_name) AS "Customer", 
+  c.court_name, 
+  c.base_price, 
+  CONCAT(d.coach_name, " ", d.coach_last_name) AS "Coach" 
+  FROM db_raquetclub.customer_reservation AS a 
 JOIN customer AS b ON a.id_customer = b.id_customer
 JOIN courts AS c ON a.courts_id_court = c.id_court
-JOIN coach AS d ON a.id_coach = d.id_coach;
+JOIN coach AS d ON a.id_coach = d.id_coach
+LIMIT 20;
+```
+
+**Sample Output (first x20)**
+```code
++-------------+----------------+-----------------+-------------------+------------+------------+------------------+
+| id_customer | id_reservation | courts_id_court | Customer          | court_name | base_price | Coach            |
++-------------+----------------+-----------------+-------------------+------------+------------+------------------+
+|          33 |             17 |               4 | Carlos Guzman     | Paddel     | 50         | Michael Thompson |
+|          46 |             69 |               4 | Katherine Brooks  | Paddel     | 50         | Michael Thompson |
+|          48 |            129 |               3 | Emily Navarro     | Raquetball | 30         | Michael Thompson |
+|          35 |              3 |               3 | Felipe Ortiz      | Raquetball | 30         | Michael Thompson |
+|          49 |            108 |               3 | Diego Salazar     | Raquetball | 30         | Michael Thompson |
+|          50 |             14 |               2 | Michelle Harrison | Pickeball  | 35         | Michael Thompson |
+|          11 |             95 |               2 | Lucas Jackson     | Pickeball  | 35         | Michael Thompson |
+|          29 |             36 |               2 | Leo Torres        | Pickeball  | 35         | Michael Thompson |
+|          45 |             87 |               2 | Andres Mora       | Pickeball  | 35         | Michael Thompson |
+|          14 |             78 |               4 | Charlotte Perez   | Paddel     | 50         | Laura Gonzalez   |
+|          35 |            140 |               4 | Felipe Ortiz      | Paddel     | 50         | Laura Gonzalez   |
+|           8 |             16 |               4 | Emma Thomas       | Paddel     | 50         | Laura Gonzalez   |
+|          50 |            158 |               3 | Michelle Harrison | Raquetball | 30         | Laura Gonzalez   |
+|          21 |             27 |               3 | Matthew Lewis     | Raquetball | 30         | Laura Gonzalez   |
+|          34 |            130 |               3 | Victoria Sanders  | Raquetball | 30         | Laura Gonzalez   |
+|          52 |             34 |               3 | Paula Hernandez   | Raquetball | 30         | Laura Gonzalez   |
+|           9 |             50 |               2 | Benjamin Taylor   | Pickeball  | 35         | Laura Gonzalez   |
+|          43 |            100 |               2 | Ricardo Valdez    | Pickeball  | 35         | Laura Gonzalez   |
+|          38 |             87 |               2 | Natalia Castro    | Pickeball  | 35         | Laura Gonzalez   |
+|           6 |             52 |               1 | Sophia Wilson     | Tennis     | 50         | Laura Gonzalez   |
++-------------+----------------+-----------------+-------------------+------------+------------+------------------+
+20 rows in set (0.00 sec)
+```
 
 
 LEFT JOIN shows the ID of the coaches that are empty while the right join and join do not shows these null in the id_coach, they behave the same.
+
+SELECT date, COUNT(1) AS "Quantity" FROM db_raquetclub.reservation
+GROUP BY date;
