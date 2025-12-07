@@ -208,9 +208,22 @@ INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VA
 INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('3', 'Raquetball', '30');
 INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('4', 'Paddel', '50');
 
+-------------------------------------------------------
+-- COACH SAMPLE DATA (8 rows)
+-------------------------------------------------------
+INSERT INTO coach (coach_name, coach_last_name, coach_phone)
+VALUES
+('Michael', 'Thompson', '260-555-1823'),
+('Laura', 'Gonzalez', '260-555-7741'),
+('David', 'Ramirez', '260-555-3398'),
+('Sophia', 'Martinez', '260-555-8842'),
+('Ethan', 'Walker', '260-555-6670'),
+('Isabella', 'Hughes', '260-555-9012'),
+('Jonathan', 'Kim', '260-555-4429'),
+('Emily', 'Stevens', '260-555-7305');
 
 -------------------------------------------------------
--- CUSTOMER SAMPLE DATA (90 rows)
+-- CUSTOMER SAMPLE DATA (142 rows)
 -------------------------------------------------------
 INSERT INTO customer (name, last_name, phone_number) VALUES
 ('John', 'Smith', '555-201-4432'),
@@ -423,21 +436,7 @@ INSERT INTO reservation (time_start, end_time, date) VALUES
 ('2023-11-21 18:24:31.000000', '2023-11-21 20:18:53.000000', '2023-11-21');
 
 -------------------------------------------------------
--- COACH SAMPLE DATA (8 rows)
--------------------------------------------------------
-INSERT INTO coach (coach_name, coach_last_name, coach_phone)
-VALUES
-('Michael', 'Thompson', '260-555-1823'),
-('Laura', 'Gonzalez', '260-555-7741'),
-('David', 'Ramirez', '260-555-3398'),
-('Sophia', 'Martinez', '260-555-8842'),
-('Ethan', 'Walker', '260-555-6670'),
-('Isabella', 'Hughes', '260-555-9012'),
-('Jonathan', 'Kim', '260-555-4429'),
-('Emily', 'Stevens', '260-555-7305');
-
--------------------------------------------------------
--- CUSTOMER_RESERVATION SAMPLE DATA (8 rows)
+-- CUSTOMER_RESERVATION SAMPLE DATA (90 rows)
 -------------------------------------------------------
 INSERT INTO customer_reservation (id_customer, id_reservation, courts_id_court, id_coach) VALUES
 (4, 1, 4, 7),
@@ -559,26 +558,26 @@ LIMIT 20;
 +-------------+-----------------+----------------+----------+
 | id_customer | courts_id_court | id_reservation | id_coach |
 +-------------+-----------------+----------------+----------+
-|           1 |               1 |             62 |        4 |
-|           1 |               3 |             74 |        7 |
-|           1 |               4 |            143 |     NULL |
-|           1 |               4 |             70 |        7 |
-|           2 |               1 |             26 |     NULL |
-|           2 |               2 |             65 |        3 |
-|           2 |               4 |             84 |     NULL |
-|           3 |               1 |            145 |     NULL |
-|           3 |               2 |             19 |        8 |
-|           3 |               3 |            153 |        3 |
-|           4 |               2 |            132 |     NULL |
-|           4 |               3 |             97 |        4 |
-|           5 |               1 |            154 |        8 |
-|           5 |               1 |            145 |     NULL |
-|           5 |               2 |            129 |        6 |
-|           5 |               4 |             47 |     NULL |
-|           6 |               1 |             52 |        2 |
-|           6 |               3 |             19 |        7 |
-|           6 |               4 |            138 |     NULL |
-|           6 |               4 |            158 |        3 |
+|           1 |               1 |             79 |     NULL |
+|           1 |               2 |             40 |        3 |
+|           1 |               3 |              8 |        5 |
+|           1 |               4 |             37 |        6 |
+|           2 |               1 |             61 |        5 |
+|           2 |               3 |             26 |        6 |
+|           2 |               3 |             60 |        2 |
+|           2 |               3 |             25 |        8 |
+|           3 |               1 |             90 |     NULL |
+|           3 |               4 |             41 |        7 |
+|           4 |               1 |             72 |     NULL |
+|           4 |               3 |             17 |        8 |
+|           4 |               4 |              1 |        7 |
+|           4 |               4 |             58 |        2 |
+|           5 |               2 |             24 |        8 |
+|           5 |               3 |             62 |        1 |
+|           5 |               3 |             85 |     NULL |
+|           5 |               3 |             16 |        8 |
+|           6 |               1 |             15 |        1 |
+|           6 |               2 |             59 |        8 |
 +-------------+-----------------+----------------+----------+
 20 rows in set (0.00 sec)
 ```
@@ -904,6 +903,9 @@ Empty set (0.00 sec)
 This view for total reenues join customer reservation, court and calculate the total revenue per court using base price and adding them aggregated by court.
 
 ```sql
+-- Query 9: Create a view and then using it
+CREATE VIEW total_revenue AS 
+
 -- Query 9: Create a view and then using it
 SELECT 
     a.courts_id_court AS courts_id_court,
