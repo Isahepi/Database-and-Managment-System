@@ -242,7 +242,7 @@ INSERT INTO customer (name, last_name, phone_number) VALUES
 ( 'Owen', 'Wright', '555-554-7133'),
 ( 'Layla', 'Scott', '555-912-4200'),
 ( 'Leo', 'Torres', '555-345-9902'),
-( 'Nora', 'Nguyen', '555-822-6491');
+( 'Nora', 'Nguyen', '555-822-6491'),
 ('Daniel', 'Reynolds', '260-555-4102'),
 ('Mariana', 'Lopez', '260-555-9984'),
 ('Carlos', 'Guzman', '260-555-7315'),
