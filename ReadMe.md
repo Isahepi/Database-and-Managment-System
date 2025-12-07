@@ -276,7 +276,7 @@ INSERT INTO customer (name, last_name, phone_number) VALUES
 
 
 -------------------------------------------------------
--- RESERVATION SAMPLE DATA (8 rows)
+-- RESERVATION SAMPLE DATA (142 rows)
 -------------------------------------------------------
 INSERT INTO reservation (time_start, end_time, date) VALUES
 ('2024-07-19 04:38:25.000000', '2024-07-19 07:03:16.000000', '2024-07-19'),
@@ -426,7 +426,7 @@ INSERT INTO reservation (time_start, end_time, date) VALUES
 -------------------------------------------------------
 -- CUSTOMER_RESERVATION SAMPLE DATA (8 rows)
 -------------------------------------------------------
-INSERT INTO CUSTOMER_RESERVATION (id_customer, id_reservation, courts_id_court, id_coach) VALUES
+INSERT INTO customer_reservation (id_customer, id_reservation, courts_id_court, id_coach) VALUES
 (4, 1, 4, 7),
 (10, 2, 2, 4),
 (9, 3, 1, 4),
