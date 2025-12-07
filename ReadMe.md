@@ -200,7 +200,7 @@ The following SQL insert sample data for the `court` (x4), `customer` (x60), and
 ```sql
 
 -------------------------------------------------------
--- COURT SAMPLE DATA (20 rows)
+-- COURT SAMPLE DATA (4 rows)
 -------------------------------------------------------
 
 INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('1', 'Tennis', '50');
@@ -210,7 +210,7 @@ INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VA
 
 
 -------------------------------------------------------
--- CUSTOMER SAMPLE DATA (8 rows)
+-- CUSTOMER SAMPLE DATA (90 rows)
 -------------------------------------------------------
 INSERT INTO customer (name, last_name, phone_number) VALUES
 ('John', 'Smith', '555-201-4432'),
@@ -278,7 +278,7 @@ INSERT INTO customer (name, last_name, phone_number) VALUES
 -------------------------------------------------------
 -- RESERVATION SAMPLE DATA (8 rows)
 -------------------------------------------------------
-INSERT INTO reservations (time_start, end_time, date) VALUES
+INSERT INTO reservation (time_start, end_time, date) VALUES
 ('2024-07-19 04:38:25.000000', '2024-07-19 07:03:16.000000', '2024-07-19'),
 ('2024-01-22 09:36:40.000000', '2024-01-22 11:49:17.000000', '2024-01-22'),
 ('2023-11-25 10:11:23.000000', '2023-11-25 11:44:37.000000', '2023-11-25'),
