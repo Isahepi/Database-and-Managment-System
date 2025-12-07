@@ -939,13 +939,75 @@ This transaction changes the rice of the courts by 5% and then rollback so that 
 
 ```sql
 -- Query 10: Demostrate original prices
+SELECT *
+FROM courts;
 
+START TRANSACTION;
+
+-- Increase the base price by 5%
+UPDATE courts
+SET base_price = base_price * 1.05
+WHERE id_court = 2 OR id_court = 3;
+
+-- See the change value inside the transaction
+SELECT *
+FROM courts;
+
+-- Undo the change
+ROLLBACK;
+
+-- Confirm the values are back to original
+SELECT *
+FROM courts;
 ```
 ---
 
 **Sample Output**
 ```code
+-- Demostrate a transaction with rollback
+-- Check original prices
 
+mysql> SELECT *
+    -> FROM courts;
++----------+------------+------------+
+| id_court | court_name | base_price |
++----------+------------+------------+
+|        1 | Tennis     | 50         |
+|        2 | Pickeball  | 35         |
+|        3 | Raquetball | 30         |
+|        4 | Paddel     | 50         |
++----------+------------+------------+
+4 rows in set (0.00 sec)
+mysql> UPDATE courts
+    -> SET base_price = base_price * 1.05
+    -> WHERE id_court = 2 OR id_court = 3;
+Query OK, 2 row affected (0.001 sec)
+
+mysql> SELECT *
+    -> FROM courts;
++----------+------------+------------+
+| id_court | court_name | base_price |
++----------+------------+------------+
+|        1 | Tennis     | 50         |
+|        2 | Pickeball  | 36.75      |
+|        3 | Raquetball | 31.5       |
+|        4 | Paddel     | 50         |
++----------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> SELECT * from courts;
++----------+------------+------------+
+| id_court | court_name | base_price |
++----------+------------+------------+
+|        1 | Tennis     | 50         |
+|        2 | Pickeball  | 35         |
+|        3 | Raquetball | 30         |
+|        4 | Paddel     | 50         |
++----------+------------+------------+
+4 rows in set (0.00 sec)
 ```
 
 ---
@@ -958,15 +1020,24 @@ Drop all tables (and view) from database.
 
 
 ```sql
+-- ==========================================
+--  DROP ALL TABLES AND VIEW
+--  (customer_reservation → coach, customer, courts, reservation)
+-- ==========================================
+-- Drop the view first (if it exists)
+DROP VIEW IF EXISTS total_revenue;
+
+-- Drop child table first with FK referencing to customer, coach, reservation and customer
+DROP TABLE IF EXISTS customer_reservation;
+
+-- Drop parent tables
+DROP TABLE IF EXISTS coach;
+DROP TABLE IF EXISTS courts;
+DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS reservation;
+
 ```
 
 ---
 
 ### Poster and Presentation
-
-
-
-LEFT JOIN shows the ID of the coaches that are empty while the right join and join do not shows these null in the id_coach, they behave the same.
-
-SELECT date, COUNT(1) AS "Quantity" FROM db_raquetclub.reservation
-GROUP BY date;
