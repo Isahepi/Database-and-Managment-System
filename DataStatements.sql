@@ -7,7 +7,7 @@ INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VA
 
 
 -- Customer table
-INSERT INTO customer (id_customer, name, last_name, phone_number) VALUES
+INSERT INTO customer (name, last_name, phone_number) VALUES
 ('John', 'Smith', '555-201-4432'),
 ('Emily', 'Johnson', '555-982-1144'),
 ('Michael', 'Brown', '555-771-9833'),
@@ -71,7 +71,7 @@ INSERT INTO customer (id_customer, name, last_name, phone_number) VALUES
 
 
 -- Reservation table
-INSERT INTO reservations (time_start, end_time, date) VALUES
+INSERT INTO reservation (time_start, end_time, date) VALUES
 ('2024-07-19 04:38:25.000000', '2024-07-19 07:03:16.000000', '2024-07-19'),
 ('2024-01-22 09:36:40.000000', '2024-01-22 11:49:17.000000', '2024-01-22'),
 ('2023-11-25 10:11:23.000000', '2023-11-25 11:44:37.000000', '2023-11-25'),
@@ -240,7 +240,7 @@ INSERT INTO reservations (time_start, end_time, date) VALUES
 
 
 -- Customer_Reservation table
-INSERT INTO reservation_details (id_customer, id_reservation, courts_id_court, id_coach) VALUES
+INSERT INTO customer_reservation (id_customer, id_reservation, courts_id_court, id_coach) VALUES
 (4, 1, 4, 7),
 (10, 2, 2, 4),
 (9, 3, 1, 4),

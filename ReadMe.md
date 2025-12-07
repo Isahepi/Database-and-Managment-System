@@ -6,14 +6,14 @@
 
 ### Project Overview
 
-**Raquet Club** is a fiction company I created that operated in Fort Wayne as a club for sports that uses raquets such as Tennis, pickeball, Paddel, and racquetball. 
+**Raquet Club** is a fiction company based in Fort Wayne that specializes in sports involving racquets, such as Tennis, pickeball, Paddel, and racquetball. The club offers multiple courts and coaching sessions, provides memberships for clients of all ages and experiences.
 
-The person that will use this database are the analyst and financial people of the company to gather information to get budgeting and financial forecast of revenue and the service people that managest the schedules and organization of the courts.
+The primary users of this datbaase will be the company's analyst, financial team and service personnel. Analyst and finance staff will rely on the database to gather accurate information for budgeting, revenue tracking, and financial forecasting. Meanwhile, the service and scheduling teams will use it to organize court reservations, manage coaching sessions and oversee the day to day operations of the club.
 
 ### Users view
-From a user's view the database will make every small detail of the company easy to reach and see. The staff can see the customers scheduled courts and times, they can also see if the customer is old or new to Raquet Club, they can see the proces of each courts sport and the availability of coaches, if they are book or not, or if any of them have time to be book in a walk-in class and if they are available.
+From a user's view, the database will make every small detail of the company easy to reach and see. The service personnel can quickly view customers's upcoming courts and times, history, profile and wether a customer is new or returning. They can also check the availability of coaches, and identify open time stlots for walk in sessions or last-minute appointments.
 
-The staff can also create different reports for the owner such as sum of profit for each quarter, month, year, the most common customer, how many reservations per day for each court, making these reports also live time data included making them more accurate and easy to generate new information if needed.
+Additionaly, if we focus on other tasks that are not part of daily operations, the database allow the staff to create meaninful reports for managment. These reports may include quarterly, montly or yearly. Because the data is stores in real time, these reports remain accurate, up-to-date, and easy to regenerate whenever new insights are needed. This level of visibilirty helps the organization make informed decisions to improve porfitability, customer service, and overall efficiency.
 
 
 ## Database ER Model
@@ -62,7 +62,26 @@ erDiagram
 ```
 
 ### Database Design Description
+The database db_raquetclub is built around four normalized entities: `coach`, `courts`, `reservation`, and `customer`. Each table stores information related to the reservation of each customer. reservation stores the time, end time, and the date. courts stores the type of court for the sport and the base price. The coach table stores the different coaches available with their personal information such as first and last name and phone number. customer stores the personal information for each customer, and customer_reservation is the main table that stores all the information for a customer's reservation including the time and date, court reserved, name of customer, and whether they need a coach or not.
 
+A big normalization part in this project was understanding if I could store the customer with its reservation in one table; however, if I would’ve done that, the table would have duplicated customer information.
+
+`coach`
+The coach table stores personal information about the coaches: name, last name, and phone number. This is the primary information for each of the eight coaches.
+
+`courts`
+The courts table stores the courts_name and base_price. In this case, we only have 4 courts available, one for each sport. The base price is the amount the customer pays before tax (in this example I did not include tax anywhere).
+
+`reservation`
+The reservation table stores the start time, end time, and the date the reservation is occurring. It stores this with the ID_reservation so it can be connected to the customer_reservation table.
+
+`customer`
+The customer table stores all the private information of the customer: first name, last name, and phone number. It allows the system to associate the reservation with a customer and, if needed, contact the right person about a reservation.
+
+`customer_reservation`
+This is the central table used to retrieve information about each customer reservation. This table stores four foreign keys from all other tables, allowing it to connect all the parts of the reservation.
+
+---
 
 ### Create Tables 
 The following SQL statements create the `coach`, `customer`, `reservation`, `courts` and `customer_reservation` tables in the current database.
@@ -118,23 +137,24 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
 -- -----------------------------------------------------
--- COACH TABLE
--- Store the information of the different coaches from the company
+-- Table `db_raquetclub`.`coach`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_raquetclub`.`coach` (
   `id_coach` INT NOT NULL AUTO_INCREMENT,
   `coach_name` VARCHAR(45) NOT NULL,
   `coach_last_name` VARCHAR(45) NOT NULL,
   `coach_phone` VARCHAR(45) NOT NULL,
+  `active` TINYINT(1) NULL DEFAULT '1',
   PRIMARY KEY (`id_coach`),
   UNIQUE INDEX `id_coach_UNIQUE` (`id_coach` ASC) VISIBLE,
   UNIQUE INDEX `coach_name_UNIQUE` (`coach_name` ASC) VISIBLE,
   UNIQUE INDEX `coach_last_name_UNIQUE` (`coach_last_name` ASC) VISIBLE,
   UNIQUE INDEX `coach_phone_UNIQUE` (`coach_phone` ASC) VISIBLE)
-ENGINE = InnoDB;
-
+ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 -- -----------------------------------------------------
 -- CUSTOMER RESERVATION TABLE
@@ -192,7 +212,7 @@ INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VA
 -------------------------------------------------------
 -- CUSTOMER SAMPLE DATA (8 rows)
 -------------------------------------------------------
-INSERT INTO customer (id_customer, name, last_name, phone_number) VALUES
+INSERT INTO customer (name, last_name, phone_number) VALUES
 ('John', 'Smith', '555-201-4432'),
 ('Emily', 'Johnson', '555-982-1144'),
 ('Michael', 'Brown', '555-771-9833'),
@@ -284,79 +304,56 @@ INSERT INTO reservations (time_start, end_time, date) VALUES
 ('2023-02-10 11:22:52.000000', '2023-02-10 12:33:35.000000', '2023-02-10'),
 ('2025-10-19 13:37:13.000000', '2025-10-19 15:57:13.000000', '2025-10-19'),
 ('2024-04-21 08:57:05.000000', '2024-04-21 11:25:36.000000', '2024-04-21'),
-('2024-09-03 11:56:03.000000', '2024-09-03 13:49:11.000000', '2024-09-03'),
-('2023-05-09 13:49:11.000000', '2023-05-09 16:30:20.000000', '2023-05-09'),
-('2024-03-22 09:22:08.000000', '2024-03-22 11:32:06.000000', '2024-03-22'),
-('2025-07-14 09:53:44.000000', '2025-07-14 12:00:37.000000', '2025-07-14'),
-('2024-06-03 18:10:26.000000', '2024-06-03 20:30:14.000000', '2024-06-03'),
-('2025-11-21 13:17:51.000000', '2025-11-21 15:25:59.000000', '2025-11-21'),
-('2025-01-07 15:25:37.000000', '2025-01-07 16:35:14.000000', '2025-01-07'),
-('2023-09-30 10:03:48.000000', '2023-09-30 11:09:19.000000', '2023-09-30'),
-('2024-10-26 17:03:11.000000', '2024-10-26 19:00:54.000000', '2024-10-26'),
-('2023-03-17 09:12:14.000000', '2023-03-17 11:50:23.000000', '2023-03-17'),
-('2023-11-02 13:31:01.000000', '2023-11-02 14:53:50.000000', '2023-11-02'),
-('2025-06-08 15:28:29.000000', '2025-06-08 16:51:32.000000', '2025-06-08'),
-('2024-11-30 08:41:33.000000', '2024-11-30 11:25:19.000000', '2024-11-30'),
-('2023-02-23 11:48:23.000000', '2023-02-23 13:40:55.000000', '2023-02-23'),
-('2025-10-11 16:14:47.000000', '2025-10-11 18:59:35.000000', '2025-10-11'),
-('2023-12-28 16:54:40.000000', '2023-12-28 19:16:45.000000', '2023-12-28'),
-('2025-03-03 09:44:51.000000', '2025-03-03 12:18:04.000000', '2025-03-03'),
-('2024-08-09 17:37:29.000000', '2024-08-09 19:40:40.000000', '2024-08-09'),
-('2025-09-22 14:19:58.000000', '2025-09-22 17:01:59.000000', '2025-09-22'),
-('2024-05-11 15:38:12.000000', '2024-05-11 17:10:36.000000', '2024-05-11'),
-('2023-09-08 10:28:04.000000', '2023-09-08 11:47:45.000000', '2023-09-08'),
-('2023-03-29 09:14:30.000000', '2023-03-29 11:18:58.000000', '2023-03-29'),
-('2025-02-15 18:22:55.000000', '2025-02-15 20:03:33.000000', '2025-02-15'),
-('2024-09-14 15:00:52.000000', '2024-09-14 16:40:37.000000', '2024-09-14'),
-('2023-04-05 16:17:46.000000', '2023-04-05 18:59:40.000000', '2023-04-05'),
-('2023-01-27 13:47:06.000000', '2023-01-27 15:00:06.000000', '2023-01-27'),
-('2025-08-25 14:33:12.000000', '2025-08-25 16:21:35.000000', '2025-08-25'),
-('2025-05-15 13:10:57.000000', '2025-05-15 15:20:23.000000', '2025-05-15'),
-('2023-06-02 11:20:03.000000', '2023-06-02 13:51:57.000000', '2023-06-02'),
-('2024-04-10 11:30:39.000000', '2024-04-10 13:18:24.000000', '2024-04-10'),
-('2025-09-05 10:12:51.000000', '2025-09-05 12:44:43.000000', '2025-09-05'),
-('2024-01-05 09:01:48.000000', '2024-01-05 10:24:39.000000', '2024-01-05'),
-('2025-06-24 11:50:33.000000', '2025-06-24 14:00:51.000000', '2025-06-24'),
-('2023-07-23 17:49:40.000000', '2023-07-23 20:19:42.000000', '2023-07-23'),
-('2023-10-19 14:01:33.000000', '2023-10-19 15:08:17.000000', '2023-10-19'),
-('2024-06-21 15:24:27.000000', '2024-06-21 17:45:21.000000', '2024-06-21'),
-('2023-05-15 18:03:36.000000', '2023-05-15 19:13:28.000000', '2023-05-15'),
-('2024-02-28 10:17:19.000000', '2024-02-28 12:13:49.000000', '2024-02-28'),
-('2025-01-29 16:48:13.000000', '2025-01-29 19:29:41.000000', '2025-01-29'),
-('2023-09-26 10:42:22.000000', '2023-09-26 12:34:20.000000', '2023-09-26'),
-('2025-07-03 09:17:04.000000', '2025-07-03 11:09:55.000000', '2025-07-03'),
-('2025-03-10 11:32:40.000000', '2025-03-10 13:10:55.000000', '2025-03-10'),
-('2024-08-01 08:44:51.000000', '2024-08-01 11:19:12.000000', '2024-08-01'),
-('2023-11-12 17:03:14.000000', '2023-11-12 18:27:48.000000', '2023-11-12'),
-('2024-10-05 18:40:29.000000', '2024-10-05 20:06:52.000000', '2024-10-05'),
-('2023-03-11 15:26:22.000000', '2023-03-11 17:13:41.000000', '2023-03-11'),
-('2023-12-09 14:14:03.000000', '2023-12-09 16:02:54.000000', '2023-12-09'),
-('2025-11-01 08:59:37.000000', '2025-11-01 10:38:27.000000', '2025-11-01'),
-('2024-09-22 11:07:15.000000', '2024-09-22 12:36:30.000000', '2024-09-22'),
-('2023-04-21 09:38:40.000000', '2023-04-21 11:49:50.000000', '2023-04-21'),
-('2025-02-05 13:14:54.000000', '2025-02-05 14:57:05.000000', '2025-02-05'),
-('2023-01-11 17:33:53.000000', '2023-01-11 19:26:40.000000', '2023-01-11'),
-('2025-06-15 18:34:09.000000', '2025-06-15 20:04:53.000000', '2025-06-15'),
-('2024-11-18 08:20:33.000000', '2024-11-18 10:57:05.000000', '2024-11-18'),
-('2023-10-03 14:22:49.000000', '2023-10-03 16:32:52.000000', '2023-10-03'),
-('2023-07-06 16:19:03.000000', '2023-07-06 17:58:01.000000', '2023-07-06'),
-('2024-05-05 09:54:44.000000', '2024-05-05 12:16:39.000000', '2024-05-05'),
-('2025-09-28 16:40:25.000000', '2025-09-28 18:29:39.000000', '2025-09-28'),
-('2023-08-25 13:02:37.000000', '2023-08-25 15:26:24.000000', '2023-08-25'),
-('2024-01-28 12:16:59.000000', '2024-01-28 13:29:54.000000', '2024-01-28'),
-('2025-04-09 11:40:51.000000', '2025-04-09 13:43:12.000000', '2025-04-09'),
-('2023-02-15 15:55:32.000000', '2023-02-15 18:16:11.000000', '2023-02-15'),
-('2024-07-06 10:47:13.000000', '2024-07-06 12:40:41.000000', '2024-07-06'),
-('2025-08-18 09:07:25.000000', '2025-08-18 11:32:09.000000', '2025-08-18'),
-('2023-11-06 18:27:44.000000', '2023-11-06 20:35:45.000000', '2023-11-06'),
-('2024-03-30 08:12:29.000000', '2024-03-30 09:32:32.000000', '2024-03-30'),
-('2025-10-07 10:36:55.000000', '2025-10-07 12:26:02.000000', '2025-10-07'),
-('2023-09-14 11:13:40.000000', '2023-09-14 13:28:22.000000', '2023-09-14'),
-('2024-06-25 14:20:03.000000', '2024-06-25 16:25:43.000000', '2024-06-25'),
-('2025-01-18 08:54:37.000000', '2025-01-18 11:09:25.000000', '2025-01-18'),
-('2023-05-27 18:03:22.000000', '2023-05-27 19:33:05.000000', '2023-05-27'),
-('2024-10-12 12:29:34.000000', '2024-10-12 14:45:22.000000', '2024-10-12'),
-('2023-04-12 17:43:55.000000', '2023-04-12 19:04:46.000000', '2023-04-12'),
+('2024-07-19 08:00:00.000000', '2024-07-19 09:15:00.000000', '2024-07-19'),
+('2024-07-19 09:30:00.000000', '2024-07-19 10:45:00.000000', '2024-07-19'),
+('2024-07-19 11:00:00.000000', '2024-07-19 12:15:00.000000', '2024-07-19'),
+('2024-07-19 12:30:00.000000', '2024-07-19 13:45:00.000000', '2024-07-19'),
+('2024-07-19 14:00:00.000000', '2024-07-19 15:15:00.000000', '2024-07-19'),
+('2024-01-22 09:00:00.000000', '2024-01-22 10:30:00.000000', '2024-01-22'),
+('2024-01-22 10:45:00.000000', '2024-01-22 12:00:00.000000', '2024-01-22'),
+('2024-01-22 12:15:00.000000', '2024-01-22 13:30:00.000000', '2024-01-22'),
+('2024-01-22 13:45:00.000000', '2024-01-22 15:00:00.000000', '2024-01-22'),
+('2024-01-22 15:15:00.000000', '2024-01-22 16:30:00.000000', '2024-01-22'),
+('2023-11-25 08:15:00.000000', '2023-11-25 09:30:00.000000', '2023-11-25'),
+('2023-11-25 09:45:00.000000', '2023-11-25 11:00:00.000000', '2023-11-25'),
+('2023-11-25 11:15:00.000000', '2023-11-25 12:30:00.000000', '2023-11-25'),
+('2023-11-25 12:45:00.000000', '2023-11-25 14:00:00.000000', '2023-11-25'),
+('2023-11-25 14:15:00.000000', '2023-11-25 15:30:00.000000', '2023-11-25'),
+('2024-02-09 08:30:00.000000', '2024-02-09 09:45:00.000000', '2024-02-09'),
+('2024-02-09 10:00:00.000000', '2024-02-09 11:30:00.000000', '2024-02-09'),
+('2024-02-09 11:45:00.000000', '2024-02-09 13:00:00.000000', '2024-02-09'),
+('2024-02-09 13:15:00.000000', '2024-02-09 14:30:00.000000', '2024-02-09'),
+('2024-02-09 14:45:00.000000', '2024-02-09 16:00:00.000000', '2024-02-09'),
+('2023-08-17 08:00:00.000000', '2023-08-17 09:30:00.000000', '2023-08-17'),
+('2023-08-17 09:45:00.000000', '2023-08-17 11:00:00.000000', '2023-08-17'),
+('2023-08-17 11:15:00.000000', '2023-08-17 12:45:00.000000', '2023-08-17'),
+('2023-08-17 13:00:00.000000', '2023-08-17 14:15:00.000000', '2023-08-17'),
+('2023-08-17 14:30:00.000000', '2023-08-17 15:45:00.000000', '2023-08-17'),
+('2023-03-08 10:00:00.000000', '2023-03-08 11:15:00.000000', '2023-03-08'),
+('2023-03-08 11:30:00.000000', '2023-03-08 12:45:00.000000', '2023-03-08'),
+('2023-03-08 13:00:00.000000', '2023-03-08 14:30:00.000000', '2023-03-08'),
+('2023-03-08 14:45:00.000000', '2023-03-08 16:00:00.000000', '2023-03-08'),
+('2023-03-08 16:15:00.000000', '2023-03-08 17:30:00.000000', '2023-03-08'),
+('2025-05-03 08:30:00.000000', '2025-05-03 09:45:00.000000', '2025-05-03'),
+('2025-05-03 10:00:00.000000', '2025-05-03 11:30:00.000000', '2025-05-03'),
+('2025-05-03 11:45:00.000000', '2025-05-03 13:00:00.000000', '2025-05-03'),
+('2025-05-03 13:15:00.000000', '2025-05-03 14:30:00.000000', '2025-05-03'),
+('2025-05-03 14:45:00.000000', '2025-05-03 16:00:00.000000', '2025-05-03'),
+('2025-05-20 09:00:00.000000', '2025-05-20 10:30:00.000000', '2025-05-20'),
+('2025-05-20 10:45:00.000000', '2025-05-20 12:00:00.000000', '2025-05-20'),
+('2025-05-20 12:15:00.000000', '2025-05-20 13:30:00.000000', '2025-05-20'),
+('2025-05-20 13:45:00.000000', '2025-05-20 15:00:00.000000', '2025-05-20'),
+('2025-05-20 15:15:00.000000', '2025-05-20 16:30:00.000000', '2025-05-20'),
+('2023-10-08 08:15:00.000000', '2023-10-08 09:30:00.000000', '2023-10-08'),
+('2023-10-08 09:45:00.000000', '2023-10-08 11:00:00.000000', '2023-10-08'),
+('2023-10-08 11:15:00.000000', '2023-10-08 12:30:00.000000', '2023-10-08'),
+('2023-10-08 12:45:00.000000', '2023-10-08 14:00:00.000000', '2023-10-08'),
+('2023-10-08 14:15:00.000000', '2023-10-08 15:30:00.000000', '2023-10-08'),
+('2023-04-28 08:30:00.000000', '2023-04-28 09:45:00.000000', '2023-04-28'),
+('2023-04-28 10:00:00.000000', '2023-04-28 11:30:00.000000', '2023-04-28'),
+('2023-04-28 11:45:00.000000', '2023-04-28 13:00:00.000000', '2023-04-28'),
+('2023-04-28 13:15:00.000000', '2023-04-28 14:30:00.000000', '2023-04-28'),
+('2023-04-28 14:45:00.000000', '2023-04-28 16:00:00.000000', '2023-04-28'),
 ('2024-09-01 15:07:18.000000', '2024-09-01 17:41:44.000000', '2024-09-01'),
 ('2025-03-21 09:30:49.000000', '2025-03-21 11:40:38.000000', '2025-03-21'),
 ('2023-06-09 08:46:14.000000', '2023-06-09 10:00:08.000000', '2023-06-09'),
@@ -545,12 +542,15 @@ Queries using `coach`, `courts`, `customer`,  `customer_reservation`, `reservati
 ---
 
 ## Query 1 – `SELECT` with `ORDER BY` on two columns
+This query shows the id_customer, courts_id_court, id_reservation, and id_coach ordered by id_customer and courts_id_court. This query is useful to see various things in a raw format: we are able to see if a customer is new or old, if they have reserved a specific court before, and we can see in the history of reservations whether they had a specific coach or if they had multiple coaches.
+
 ```sql
 -- Query 1: Select customers's reservation including court and if they have a coach or not ordered by id_customer and court type
 
 SELECT id_customer, courts_id_court, id_reservation, id_coach 
 FROM db_raquetclub.customer_reservation
-ORDER BY id_customer, courts_id_court;
+ORDER BY id_customer, courts_id_court
+LIMIT 20;
 
 ```
 ***Sample Output**
@@ -580,17 +580,17 @@ ORDER BY id_customer, courts_id_court;
 |           6 |               4 |            158 |        3 |
 +-------------+-----------------+----------------+----------+
 20 rows in set (0.00 sec)
-Limit to 20 rows
 ```
 
 ## Query 2 – `SELECT` with a calculated field (non-aggregate)
+This query shows the amount of time the reservation was in place. It is used to see the average reservation time, and it is also useful to check whether a court is available at a certain time. Because the table uses datetime values, the time difference function is the correct formula to calculate how long the customer spent on the court.
 
 ```sql
--- Query 2: Show project goals, including a calculated “thousands” column
--- Because I was using dates, the time difference is the correcformula to get the difference of time and get the time the customer spent in the court.
+-- Query 2: Show the start and end time of the reservation with a calculated column that show the duration of the reservation
 
-SELECT *, timestampdiff( hour ,time_start,end_time) AS "time" FROM db_raquetclub.reservation;
-
+SELECT *,
+TIME_FORMAT(TIMEDIFF(end_time, time_start), '%H:%i') AS duration
+FROM db_raquetclub.reservation;
 ```
 
 **Sample Output**
@@ -624,9 +624,10 @@ Limit to 20 rows
 ```
 
 ## Query 3 – `SELECT` using a MariaDB function (non-aggregate)
+This query shows the day, month, and year of a reservation by extracting each part from the date field. This is useful for filtering reservations by month, day, or year, and it also provides the information in a format that is easier to read than the full date.
 
 ```sql
--- Query 3:
+-- Query 3: Extracts da, month and year from date
 SELECT 
   id_reservation, 
   day(date) AS "Day", 
@@ -668,19 +669,52 @@ LIMIT 20;
 ---
 
 ## Query 4 – Aggregation with `GROUP BY` and `HAVING`
+This query displays the total number of reservations made for each client in the customer_reservation table. It uses the count function to calculate the number of reservations a client has and groups them by id_client, filtering only for customers who have more than two reservations.
 
-SELECT date, COUNT(1) AS "Quantity" FROM db_raquetclub.reservation
-GROUP BY date
-HAVING day(date) = 3;
+```sql
+-- Query 4: Count reservations per customer and show only those with more than 2 reservations
+SELECT id_customer, COUNT(id_reservation) AS total_reservations
+FROM db_raquetclub.customer_reservation
+GROUP BY id_customer
+HAVING COUNT(id_reservation) > 2;
+```
+
+**Sample Output (example)**
+```code
++-------------+--------------------+
+| id_customer | total_reservations |
++-------------+--------------------+
+|           4 |                  4 |
+|          10 |                  5 |
+|          27 |                  3 |
+|          24 |                  5 |
+|          28 |                  4 |
+|           7 |                  4 |
+|           1 |                  4 |
+|          18 |                  8 |
+|          23 |                  3 |
+|           6 |                  5 |
+|           5 |                  4 |
+|          17 |                  3 |
+|           2 |                  4 |
+|          21 |                  4 |
+|          22 |                  4 |
+|          30 |                  3 |
++-------------+--------------------+
+16 rows in set (0.00 sec)
+```
+
+---
 
 ## Query 5 – Join of three tables (`member`, `donation`, `project`)
-```sql
--- Query 5:
+This query joins the reservation, customer, courts, and coach tables to show each reservation along with the customer’s name, the court reserved, the court’s base price, and the assigned coach. One important detail is that this type of join only returns reservations that have a coach assigned, ignoring any reservations where the coach is NULL.
 
+This query is useful for analyzing which customers had a coach during their reservation and tracking their reservation numbers. It helps identify coaching patterns, see which courts and coaches are most utilized, and understand customer preferences when a coach is involved.
+
+```sql
+-- Query 5: Join reservation, customer, coach, court to show reservations without coach
 SELECT 
-  a.id_customer, 
   a.id_reservation, 
-  a.courts_id_court, 
   CONCAT(b.name, " ", b.last_name) AS "Customer", 
   c.court_name, 
   c.base_price, 
@@ -694,79 +728,219 @@ LIMIT 20;
 
 **Sample Output (first x20)**
 ```code
-+-------------+----------------+-----------------+-------------------+------------+------------+------------------+
-| id_customer | id_reservation | courts_id_court | Customer          | court_name | base_price | Coach            |
-+-------------+----------------+-----------------+-------------------+------------+------------+------------------+
-|          33 |             17 |               4 | Carlos Guzman     | Paddel     | 50         | Michael Thompson |
-|          46 |             69 |               4 | Katherine Brooks  | Paddel     | 50         | Michael Thompson |
-|          48 |            129 |               3 | Emily Navarro     | Raquetball | 30         | Michael Thompson |
-|          35 |              3 |               3 | Felipe Ortiz      | Raquetball | 30         | Michael Thompson |
-|          49 |            108 |               3 | Diego Salazar     | Raquetball | 30         | Michael Thompson |
-|          50 |             14 |               2 | Michelle Harrison | Pickeball  | 35         | Michael Thompson |
-|          11 |             95 |               2 | Lucas Jackson     | Pickeball  | 35         | Michael Thompson |
-|          29 |             36 |               2 | Leo Torres        | Pickeball  | 35         | Michael Thompson |
-|          45 |             87 |               2 | Andres Mora       | Pickeball  | 35         | Michael Thompson |
-|          14 |             78 |               4 | Charlotte Perez   | Paddel     | 50         | Laura Gonzalez   |
-|          35 |            140 |               4 | Felipe Ortiz      | Paddel     | 50         | Laura Gonzalez   |
-|           8 |             16 |               4 | Emma Thomas       | Paddel     | 50         | Laura Gonzalez   |
-|          50 |            158 |               3 | Michelle Harrison | Raquetball | 30         | Laura Gonzalez   |
-|          21 |             27 |               3 | Matthew Lewis     | Raquetball | 30         | Laura Gonzalez   |
-|          34 |            130 |               3 | Victoria Sanders  | Raquetball | 30         | Laura Gonzalez   |
-|          52 |             34 |               3 | Paula Hernandez   | Raquetball | 30         | Laura Gonzalez   |
-|           9 |             50 |               2 | Benjamin Taylor   | Pickeball  | 35         | Laura Gonzalez   |
-|          43 |            100 |               2 | Ricardo Valdez    | Pickeball  | 35         | Laura Gonzalez   |
-|          38 |             87 |               2 | Natalia Castro    | Pickeball  | 35         | Laura Gonzalez   |
-|           6 |             52 |               1 | Sophia Wilson     | Tennis     | 50         | Laura Gonzalez   |
-+-------------+----------------+-----------------+-------------------+------------+------------+------------------+
++----------------+--------------------+------------+------------+------------------+
+| id_reservation | Customer           | court_name | base_price | Coach            |
++----------------+--------------------+------------+------------+------------------+
+|              4 | Owen Wright        | Raquetball | 30         | Michael Thompson |
+|             15 | Sophia Wilson      | Tennis     | 50         | Michael Thompson |
+|             18 | Ethan Harris       | Raquetball | 30         | Michael Thompson |
+|             22 | Henry Lee          | Pickeball  | 35         | Michael Thompson |
+|             27 | Charlotte Perez    | Tennis     | 50         | Michael Thompson |
+|             38 | Sebastian Young    | Tennis     | 50         | Michael Thompson |
+|             54 | Ella Walker        | Tennis     | 50         | Michael Thompson |
+|             56 | Matthew Lewis      | Tennis     | 50         | Michael Thompson |
+|             57 | Leo Torres         | Raquetball | 30         | Michael Thompson |
+|             62 | Daniel Miller      | Raquetball | 30         | Michael Thompson |
+|             68 | Ava Moore          | Raquetball | 30         | Michael Thompson |
+|              7 | James Anderson     | Raquetball | 30         | Laura Gonzalez   |
+|             30 | Matthew Lewis      | Paddel     | 50         | Laura Gonzalez   |
+|             31 | Ella Walker        | Raquetball | 30         | Laura Gonzalez   |
+|             35 | Lucas Jackson      | Pickeball  | 35         | Laura Gonzalez   |
+|             42 | Harper Sanchez     | Tennis     | 50         | Laura Gonzalez   |
+|             52 | Camila King        | Tennis     | 50         | Laura Gonzalez   |
+|             58 | Olivia Davis       | Paddel     | 50         | Laura Gonzalez   |
+|             60 | Emily Johnson      | Raquetball | 30         | Laura Gonzalez   |
+|             63 | Alexander Thompson | Tennis     | 50         | Laura Gonzalez   |
++----------------+--------------------+------------+------------+------------------+
 20 rows in set (0.00 sec)
 ```
 
 ---
 
 ## Query 6 – `LEFT JOIN` 
-```sql
--- Query 6:
+This query joins the reservation, customer, courts, and coach tables to show each reservation along with the customer’s name, the court reserved, the court’s base price, and the assigned coach. One important detail is that this type of join returns reservations that have a coach assigned and any reservations where the coach is NULL.
 
+This query is useful to track all the reservations without excluding any, even if the coach is null, this can help track reservation for the company, see wich customers have a reservation with ot without coach, help with insights analyzing coach utilization versus reservation without coach.
+
+```sql
+-- Query 6: LEFT JOIN reservation, customer, coach, court to show sll reservations 
+SELECT 
+  a.id_reservation, 
+  CONCAT(b.name, " ", b.last_name) AS "Customer", 
+  c.court_name, 
+  c.base_price, 
+  CONCAT(d.coach_name, " ", d.coach_last_name) AS "Coach" 
+  FROM db_raquetclub.customer_reservation AS a 
+LEFT JOIN customer AS b ON a.id_customer = b.id_customer
+LEFT JOIN courts AS c ON a.courts_id_court = c.id_court
+LEFT JOIN coach AS d ON a.id_coach = d.id_coach
+LIMIT 20;
 ```
 
 **Sample Output**
 ```code
++----------------+-----------------+------------+------------+------------------+
+| id_reservation | Customer        | court_name | base_price | Coach            |
++----------------+-----------------+------------+------------+------------------+
+|              1 | Olivia Davis    | Paddel     | 50         | Jonathan Kim     |
+|              2 | Ava Moore       | Pickeball  | 35         | Sophia Martinez  |
+|              3 | Benjamin Taylor | Tennis     | 50         | Sophia Martinez  |
+|              4 | Owen Wright     | Raquetball | 30         | Michael Thompson |
+|              5 | Aria Hall       | Pickeball  | 35         | Emily Stevens    |
+|              6 | Layla Scott     | Paddel     | 50         | Jonathan Kim     |
+|              7 | James Anderson  | Raquetball | 30         | Laura Gonzalez   |
+|              8 | John Smith      | Raquetball | 30         | Ethan Walker     |
+|              9 | Harper Sanchez  | Raquetball | 30         | Isabella Hughes  |
+|             10 | James Anderson  | Raquetball | 30         | Emily Stevens    |
+|             11 | Ava Moore       | Raquetball | 30         | Jonathan Kim     |
+|             12 | Harper Sanchez  | Raquetball | 30         | Jonathan Kim     |
+|             13 | Layla Scott     | Paddel     | 50         | Sophia Martinez  |
+|             14 | Sebastian Young | Pickeball  | 35         | Ethan Walker     |
+|             15 | Sophia Wilson   | Tennis     | 50         | Michael Thompson |
+|             16 | Daniel Miller   | Raquetball | 30         | Emily Stevens    |
+|             17 | Olivia Davis    | Raquetball | 30         | Emily Stevens    |
+|             18 | Ethan Harris    | Raquetball | 30         | Michael Thompson |
+|             19 | James Anderson  | Raquetball | 30         | Jonathan Kim     |
+|             20 | Owen Wright     | Pickeball  | 35         | David Ramirez    |
++----------------+-----------------+------------+------------+------------------+
+20 rows in set (0.00 sec)
 ```
 
 ---
 
-## Query 7 – `UPDATE` query (change project status)
+## Query 7 – `UPDATE` query (change customer phone number)
+This `UPDATE` change the phone number of a customer because it was wrong enteres or it changed over time. This will allows the company to have update information formthe customer to check reservations and availability of courts.
 
 ```sql
--- Query 7:
+-- Query 7: UPDATE the phone number of a customer that was incorrect from 555-771-9833 to 616-290-7705
+
+-- Check current phone number 
+SELECT * 
+FROM customer
+WHERE id_customer = 3;
+
+-- Perform the update
+UPDATE customer
+SET phone_number ='616-290-7705'
+WHERE id_customer = 3;
+
+
+-- Verify the update
+SELECT * 
+FROM customer
+WHERE id_customer = 3;
 ```
 
 **Sample Output**
 ```code
++-------------+---------+-----------+--------------+
+| id_customer | name    | last_name | phone_number |
++-------------+---------+-----------+--------------+
+|           3 | Michael | Brown     | 555-771-9833 |
++-------------+---------+-----------+--------------+
+1 row in set (0.00 sec)
+
++-------------+---------+-----------+--------------+
+| id_customer | name    | last_name | phone_number |
++-------------+---------+-----------+--------------+
+|           3 | Michael | Brown     | 616-290-7705 |
++-------------+---------+-----------+--------------+
+1 row in set (0.00 sec)
 ```
 
 ---
 
-## Query 8 – `DELETE` query
+## Query 8 – `DELETE` query (remove a reservation from the customer_reservation table)
+This query deletes a **single reservation** from the database. This will help to have the company updated, regarding to day to day reservations and availability of courts.
+
+Note: Assuming we are in Nov this will be one of the reservations to delete.
+
 ```sql
--- Query 8:
+-- Query 8: DELETE a reservation
+-- Show the reservation we plan to delete
+SELECT 
+  a.id_reservation, 
+  CONCAT(b.name, " ", b.last_name) AS "Customer", 
+  c.court_name, 
+  c.base_price, 
+  CONCAT(d.coach_name, " ", d.coach_last_name) AS "Coach",
+  e.date AS "Reservation_Date"
+FROM db_raquetclub.customer_reservation AS a
+JOIN customer AS b ON a.id_customer = b.id_customer
+JOIN courts AS c ON a.courts_id_court = c.id_court
+JOIN coach AS d ON a.id_coach = d.id_coach
+JOIN reservation AS e ON a.id_reservation = e.id_reservation
+WHERE YEAR(e.date) = 2025 AND MONTH(e.date) = 11;
+
+-- Delete the row
+DELETE FROM customer_reservation
+WHERE id_reservation = 31;
+
+-- Confirm the row is gone
+SELECT * 
+FROM customer_reservation
+WHERE id_customer = 31;
 ```
 
 **Sample Output**
 ```code
++----------------+-------------+------------+------------+----------------+------------------+
+| id_reservation | Customer    | court_name | base_price | Coach          | Reservation_Date |
++----------------+-------------+------------+------------+----------------+------------------+
+|             31 | Ella Walker | Raquetball | 30         | Laura Gonzalez | 2025-11-21       |
++----------------+-------------+------------+------------+----------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM customer_reservation
+    -> WHERE id_customer = 31;
+Empty set (0.00 sec)
 ```
 
 ---
+
 ## Query 9 – Create a `VIEW`
+This view for total reenues join customer reservation, court and calculate the total revenue per court using base price and adding them aggregated by court.
+
 ```sql
--- Query 9:
+-- Query 9: Create a view and then using it
+SELECT 
+    a.courts_id_court AS courts_id_court,
+    c.court_name AS court_name,
+    SUM(c.base_price) AS Total_Revenue
+FROM customer_reservation AS a
+JOIN courts AS c 
+    ON a.courts_id_court = c.id_court
+GROUP BY 
+    a.courts_id_court,
+    c.court_name;
+
+-- Use the view
+SELECT * from total_revenue;
 ```
 
 **Sample Output**
+```code
++-----------------+------------+---------------+
+| courts_id_court | court_name | Total Revenue |
++-----------------+------------+---------------+
+|               1 | Tennis     |          1200 |
+|               2 | Pickeball  |           595 |
+|               3 | Raquetball |           900 |
+|               4 | Paddel     |           900 |
++-----------------+------------+---------------+
+4 rows in set (0.00 sec)
+```
+
 ---
+
 ## Query 10 – Transaction with `ROLLBACK`
+This transaction changes the rice of the courts by 5% and then rollback so that the changes does not stick. This is useful to ee how much will the price of the courts change.
+
 ```sql
--- Query 10:
+-- Query 10: Demostrate original prices
+
+```
 ---
 
 **Sample Output**
