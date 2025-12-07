@@ -865,7 +865,7 @@ WHERE id_customer = 3;
 ## Query 8 – `DELETE` query (remove a reservation from the customer_reservation table)
 This query deletes a **single reservation** from the database. This will help to have the company updated, regarding to day to day reservations and availability of courts.
 
-Note: Assuming we are in Nov this will be one of the reservations to delete.
+Note: Assuming we are in Aug this will be one of the reservations to delete.
 
 ```sql
 -- Query 8: DELETE a reservation
@@ -882,30 +882,30 @@ JOIN customer AS b ON a.id_customer = b.id_customer
 JOIN courts AS c ON a.courts_id_court = c.id_court
 JOIN coach AS d ON a.id_coach = d.id_coach
 JOIN reservation AS e ON a.id_reservation = e.id_reservation
-WHERE YEAR(e.date) = 2025 AND MONTH(e.date) = 11;
+WHERE YEAR(e.date) = 2025 AND MONTH(e.date) = 8;
 
 -- Delete the row
 DELETE FROM customer_reservation
-WHERE id_reservation = 31;
+WHERE id_reservation = 20;
 
 -- Confirm the row is gone
 SELECT * 
 FROM customer_reservation
-WHERE id_customer = 31;
+WHERE id_reservation = 20;
 ```
 
 **Sample Output**
 ```code
-+----------------+-------------+------------+------------+----------------+------------------+
-| id_reservation | Customer    | court_name | base_price | Coach          | Reservation_Date |
-+----------------+-------------+------------+------------+----------------+------------------+
-|             31 | Ella Walker | Raquetball | 30         | Laura Gonzalez | 2025-11-21       |
-+----------------+-------------+------------+------------+----------------+------------------+
++----------------+-------------+------------+------------+---------------+------------------+
+| id_reservation | Customer    | court_name | base_price | Coach         | Reservation_Date |
++----------------+-------------+------------+------------+---------------+------------------+
+|             20 | Owen Wright | Pickeball  | 35         | David Ramirez | 2025-08-10       |
++----------------+-------------+------------+------------+---------------+------------------+
 1 row in set (0.00 sec)
 
 mysql> SELECT *
     -> FROM customer_reservation
-    -> WHERE id_customer = 31;
+    -> WHERE id_reservation = 31;
 Empty set (0.00 sec)
 ```
 
