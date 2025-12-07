@@ -207,7 +207,10 @@ INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VA
 INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('2', 'Pickeball', '35');
 INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('3', 'Raquetball', '30');
 INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('4', 'Paddel', '50');
+```
 
+```sql
+---
 -------------------------------------------------------
 -- COACH SAMPLE DATA (8 rows)
 -------------------------------------------------------
@@ -222,6 +225,9 @@ VALUES
 ('Jonathan', 'Kim', '260-555-4429'),
 ('Emily', 'Stevens', '260-555-7305');
 
+```
+---
+```sql
 -------------------------------------------------------
 -- CUSTOMER SAMPLE DATA (142 rows)
 -------------------------------------------------------
@@ -288,6 +294,10 @@ INSERT INTO customer (name, last_name, phone_number) VALUES
 ('Sofia', 'Delgado', '260-555-6198');
 
 
+```
+---
+
+```sql
 -------------------------------------------------------
 -- RESERVATION SAMPLE DATA (142 rows)
 -------------------------------------------------------
@@ -435,6 +445,10 @@ INSERT INTO reservation (time_start, end_time, date) VALUES
 ('2025-08-13 09:59:33.000000', '2025-08-13 12:39:20.000000', '2025-08-13'),
 ('2023-11-21 18:24:31.000000', '2023-11-21 20:18:53.000000', '2023-11-21');
 
+```
+---
+
+```sql
 -------------------------------------------------------
 -- CUSTOMER_RESERVATION SAMPLE DATA (90 rows)
 -------------------------------------------------------
@@ -529,8 +543,6 @@ INSERT INTO customer_reservation (id_customer, id_reservation, courts_id_court, 
 (24, 88, 2, NULL),
 (14, 89, 4, NULL),
 (3, 90, 1, NULL);
-
-
 ```
 
 ---
