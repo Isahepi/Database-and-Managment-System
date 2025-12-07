@@ -422,6 +422,19 @@ INSERT INTO reservation (time_start, end_time, date) VALUES
 ('2025-08-13 09:59:33.000000', '2025-08-13 12:39:20.000000', '2025-08-13'),
 ('2023-11-21 18:24:31.000000', '2023-11-21 20:18:53.000000', '2023-11-21');
 
+-------------------------------------------------------
+-- COACH SAMPLE DATA (8 rows)
+-------------------------------------------------------
+INSERT INTO coach (coach_name, coach_last_name, coach_phone)
+VALUES
+('Michael', 'Thompson', '260-555-1823'),
+('Laura', 'Gonzalez', '260-555-7741'),
+('David', 'Ramirez', '260-555-3398'),
+('Sophia', 'Martinez', '260-555-8842'),
+('Ethan', 'Walker', '260-555-6670'),
+('Isabella', 'Hughes', '260-555-9012'),
+('Jonathan', 'Kim', '260-555-4429'),
+('Emily', 'Stevens', '260-555-7305');
 
 -------------------------------------------------------
 -- CUSTOMER_RESERVATION SAMPLE DATA (8 rows)
@@ -518,19 +531,7 @@ INSERT INTO customer_reservation (id_customer, id_reservation, courts_id_court, 
 (14, 89, 4, NULL),
 (3, 90, 1, NULL);
 
--------------------------------------------------------
--- COACH SAMPLE DATA (8 rows)
--------------------------------------------------------
-INSERT INTO coach (coach_name, coach_last_name, coach_phone)
-VALUES
-('Michael', 'Thompson', '260-555-1823'),
-('Laura', 'Gonzalez', '260-555-7741'),
-('David', 'Ramirez', '260-555-3398'),
-('Sophia', 'Martinez', '260-555-8842'),
-('Ethan', 'Walker', '260-555-6670'),
-('Isabella', 'Hughes', '260-555-9012'),
-('Jonathan', 'Kim', '260-555-4429'),
-('Emily', 'Stevens', '260-555-7305');
+
 ```
 
 ---
