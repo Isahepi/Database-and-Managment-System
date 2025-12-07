@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `db_raquetclub`.`courts` (
   PRIMARY KEY (`id_court`),
   UNIQUE INDEX `id_court_UNIQUE` (`id_court` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 0
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `db_raquetclub`.`customer` (
   PRIMARY KEY (`id_customer`),
   UNIQUE INDEX `id_customer_UNIQUE` (`id_customer` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 31
+AUTO_INCREMENT = 0
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `db_raquetclub`.`coach` (
   UNIQUE INDEX `coach_last_name_UNIQUE` (`coach_last_name` ASC) VISIBLE,
   UNIQUE INDEX `coach_phone_UNIQUE` (`coach_phone` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 9
+AUTO_INCREMENT = 0
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
