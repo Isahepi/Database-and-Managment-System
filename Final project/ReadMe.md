@@ -1028,12 +1028,17 @@ mysql> SELECT * from courts;
 ---
 
 ### Reports
+For these reports, I used Power BI to recreate the relationships between the tables and apply the necessary filters to obtain the information presented here.
+
+The Power BI chart represents the number of courts reserved by customers in the year 2025. This visualization is useful for identifying trends across the three sports offered and helps determine which one is the most popular.
+
 **Sample Power BI Chart (displayed on this page)**
-[Sample Power BI Chart!](Sample_Chart.png)
+![Sample Power BI Report!](Sample_chart.png)
 
-**Sample Power BI Chart (link)**
-[Sample Power BI Chart!](Sample_Chart.png)
+**Sample Excel Chart (link)**
+[Sample Excel Chart!](Sample_Chart.png)
 
+The Power BI report also displays detailed reservation information, including the customer’s first and last name, the court reserved, whether a coach was required, and the full reservation date (year, month, and day).
 
 **Sample Access Report (displayed on this page)**
 ![Sample Power BI Report!](Sample_Report.png)
@@ -1041,12 +1046,8 @@ mysql> SELECT * from courts;
 **Sample Access Report (link)**
 [Sample Power BI Report!](Sample_Report.png)
 
-
-
 ### Delete Tables
-
 Drop all tables (and view) from database.
-
 
 ```sql
 -- ==========================================
