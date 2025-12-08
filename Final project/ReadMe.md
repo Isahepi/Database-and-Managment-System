@@ -1033,7 +1033,7 @@ For these reports, I used Power BI to recreate the relationships between the tab
 The Power BI chart represents the number of courts reserved by customers in the year 2025. This visualization is useful for identifying trends across the three sports offered and helps determine which one is the most popular.
 
 **Sample Power BI Chart (displayed on this page)**
-![Sample Power BI Report!](Sample_chart.png)
+![Sample Power BI Report!](Sample_Chart.png)
 
 **Sample Excel Chart (link)**
 [Sample Excel Chart!](Sample_Chart.png)
