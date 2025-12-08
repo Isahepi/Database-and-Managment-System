@@ -1029,17 +1029,17 @@ mysql> SELECT * from courts;
 
 ### Reports
 **Sample Power BI Chart (displayed on this page)**
-[Sample Power BI Chart!](Sample_Chart.png "Sample Excel Chart")
+[Sample Power BI Chart!](Sample_Chart.png)
 
 **Sample Power BI Chart (link)**
-[Sample Power BI Chart!](Sample_Chart.png "Sample Excel Chart")
+[Sample Power BI Chart!](Sample_Chart.png)
 
 
 **Sample Access Report (displayed on this page)**
-![Sample Power BI Report!](Sample_chart.png "Sample Access Report")
+![Sample Power BI Report!](Sample_Report.png)
 
 **Sample Access Report (link)**
-[Sample Power BI Report!](Sample_chart.png "Sample Access Report")
+[Sample Power BI Report!](Sample_Report.png)
 
 
 
