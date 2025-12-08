@@ -93,7 +93,7 @@ The following SQL statements create the `coach`, `customer`, `reservation`, `cou
 -- Stored the different types fo courts available and
 -- the base price of each court
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_raquetclub`.`courts` (
+CREATE TABLE IF NOT EXISTS `courts` (
   `id_court` INT NOT NULL AUTO_INCREMENT,
   `court_name` VARCHAR(45) NOT NULL,
   `base_price` VARCHAR(45) NOT NULL,
@@ -101,15 +101,12 @@ CREATE TABLE IF NOT EXISTS `db_raquetclub`.`courts` (
   UNIQUE INDEX `id_court_UNIQUE` (`id_court` ASC) VISIBLE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 0
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
 
 -- -----------------------------------------------------
 -- CUSTOMER TABLE
 -- Store the personal information of the customers
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_raquetclub`.`customer` (
+CREATE TABLE IF NOT EXISTS `customer` (
   `id_customer` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NULL DEFAULT NULL,
@@ -118,15 +115,12 @@ CREATE TABLE IF NOT EXISTS `db_raquetclub`.`customer` (
   UNIQUE INDEX `id_customer_UNIQUE` (`id_customer` ASC) VISIBLE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 0
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
 
 -- -----------------------------------------------------
 -- RESERVATION TABLE
 -- Store the information of date and time of each reservation
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_raquetclub`.`reservation` (
+CREATE TABLE IF NOT EXISTS `reservation` (
   `id_reservation` INT NOT NULL AUTO_INCREMENT,
   `time_start` DATETIME(6) NOT NULL,
   `end_time` DATETIME(6) NOT NULL,
@@ -134,13 +128,11 @@ CREATE TABLE IF NOT EXISTS `db_raquetclub`.`reservation` (
   PRIMARY KEY (`id_reservation`),
   UNIQUE INDEX `id_reservation_UNIQUE` (`id_reservation` ASC) VISIBLE)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 -- -----------------------------------------------------
 -- Table `db_raquetclub`.`coach`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_raquetclub`.`coach` (
+CREATE TABLE IF NOT EXISTS `coach` (
   `id_coach` INT NOT NULL AUTO_INCREMENT,
   `coach_name` VARCHAR(45) NOT NULL,
   `coach_last_name` VARCHAR(45) NOT NULL,
@@ -153,15 +145,13 @@ CREATE TABLE IF NOT EXISTS `db_raquetclub`.`coach` (
   UNIQUE INDEX `coach_phone_UNIQUE` (`coach_phone` ASC) VISIBLE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 0
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 -- -----------------------------------------------------
 -- CUSTOMER RESERVATION TABLE
 -- Store the custumer with it's specific reservation,
 -- type of court and if using a coach or not
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_raquetclub`.`customer_reservation` (
+CREATE TABLE IF NOT EXISTS `customer_reservation` (
   `id_customer_reservation` INT NOT NULL AUTO_INCREMENT,
   `id_customer` INT NOT NULL,
   `id_reservation` INT NOT NULL,
@@ -188,8 +178,6 @@ CREATE TABLE IF NOT EXISTS `db_raquetclub`.`customer_reservation` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 ```
 
 ---
@@ -207,10 +195,7 @@ INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VA
 INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('2', 'Pickeball', '35');
 INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('3', 'Raquetball', '30');
 INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('4', 'Paddel', '50');
-```
 
-```sql
----
 -------------------------------------------------------
 -- COACH SAMPLE DATA (8 rows)
 -------------------------------------------------------
@@ -225,9 +210,6 @@ VALUES
 ('Jonathan', 'Kim', '260-555-4429'),
 ('Emily', 'Stevens', '260-555-7305');
 
-```
----
-```sql
 -------------------------------------------------------
 -- CUSTOMER SAMPLE DATA (142 rows)
 -------------------------------------------------------
@@ -293,11 +275,6 @@ INSERT INTO customer (name, last_name, phone_number) VALUES
 ('Mauricio', 'Zamora', '260-555-7540'),
 ('Sofia', 'Delgado', '260-555-6198');
 
-
-```
----
-
-```sql
 -------------------------------------------------------
 -- RESERVATION SAMPLE DATA (142 rows)
 -------------------------------------------------------
@@ -445,10 +422,6 @@ INSERT INTO reservation (time_start, end_time, date) VALUES
 ('2025-08-13 09:59:33.000000', '2025-08-13 12:39:20.000000', '2025-08-13'),
 ('2023-11-21 18:24:31.000000', '2023-11-21 20:18:53.000000', '2023-11-21');
 
-```
----
-
-```sql
 -------------------------------------------------------
 -- CUSTOMER_RESERVATION SAMPLE DATA (90 rows)
 -------------------------------------------------------
