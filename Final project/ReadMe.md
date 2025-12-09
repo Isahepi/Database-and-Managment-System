@@ -8,12 +8,12 @@
 
 **Raquet Club** is a fiction company based in Fort Wayne that specializes in sports involving racquets, such as Tennis, pickeball, Paddel, and racquetball. The club offers multiple courts and coaching sessions, provides memberships for clients of all ages and experiences.
 
-The primary users of this datbaase will be the company's analyst, financial team and service personnel. Analyst and finance staff will rely on the database to gather accurate information for budgeting, revenue tracking, and financial forecasting. Meanwhile, the service and scheduling teams will use it to organize court reservations, manage coaching sessions and oversee the day to day operations of the club.
+The primary users of this database will be the company's analyst, financial team and service personnel. Analyst and finance staff will rely on the database to gather accurate information for budgeting, revenue tracking, and financial forecasting. Meanwhile, the service and scheduling teams will use it to organize court reservations, manage coaching sessions and oversee the day to day operations of the club.
 
 ### Users view
-From a user's view, the database will make every small detail of the company easy to reach and see. The service personnel can quickly view customers's upcoming courts and times, history, profile and wether a customer is new or returning. They can also check the availability of coaches, and identify open time stlots for walk in sessions or last-minute appointments.
+From a user's view, the database will make every small detail of the company easy to reach and see. The service personnel can quickly view customers's upcoming courts and times, history, profile and weather a customer is new or returning. They can also check the availability of coaches, and identify open time slots for walk in sessions or last-minute appointments.
 
-Additionaly, if we focus on other tasks that are not part of daily operations, the database allow the staff to create meaninful reports for managment. These reports may include quarterly, montly or yearly. Because the data is stores in real time, these reports remain accurate, up-to-date, and easy to regenerate whenever new insights are needed. This level of visibilirty helps the organization make informed decisions to improve porfitability, customer service, and overall efficiency.
+Additionaly, if we focus on other tasks that are not part of daily operations, the database allow the staff to create meaninful reports for managment. These reports may include quarterly, montly or yearly. Because the data is stored in real time, these reports remain accurate, up-to-date, and easy to regenerate whenever new insights are needed. This level of visibility helps the organization make informed decisions to improve porfitability, customer service, and overall efficiency.
 
 
 ## Database ER Model
@@ -1058,3 +1058,7 @@ DROP TABLE IF EXISTS reservation;
 ---
 
 ### Poster and Presentation
+
+Final poster presentation about Raquet Club
+
+[Poster PDF](poster.pdf)
