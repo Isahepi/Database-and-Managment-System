@@ -187,18 +187,18 @@ The following SQL insert sample data for the `court` (x4), `customer` (x60), and
 
 ```sql
 
--------------------------------------------------------
--- COURT SAMPLE DATA (4 rows)
--------------------------------------------------------
+/* --------------------------------------------------------
+    - COURT SAMPLE DATA (X4)
+   -------------------------------------------------------- */
 
 INSERT INTO `courts` (`id_court`, `court_name`, `base_price`) VALUES ('1', 'Tennis', '50');
 INSERT INTO `courts` (`id_court`, `court_name`, `base_price`) VALUES ('2', 'Pickeball', '35');
 INSERT INTO `courts` (`id_court`, `court_name`, `base_price`) VALUES ('3', 'Raquetball', '30');
 INSERT INTO `courts` (`id_court`, `court_name`, `base_price`) VALUES ('4', 'Paddel', '50');
 
--------------------------------------------------------
--- COACH SAMPLE DATA (8 rows)
--------------------------------------------------------
+/* --------------------------------------------------------
+    - COACH SAMPLE DATA (X8)
+   -------------------------------------------------------- */
 INSERT INTO coach (coach_name, coach_last_name, coach_phone)
 VALUES
 ('Michael', 'Thompson', '260-555-1823'),
@@ -210,9 +210,9 @@ VALUES
 ('Jonathan', 'Kim', '260-555-4429'),
 ('Emily', 'Stevens', '260-555-7305');
 
--------------------------------------------------------
--- CUSTOMER SAMPLE DATA (142 rows)
--------------------------------------------------------
+/* --------------------------------------------------------
+    - CUSTOMER SAMPLE DATA (X60)
+   -------------------------------------------------------- */
 INSERT INTO customer (name, last_name, phone_number) VALUES
 ('John', 'Smith', '555-201-4432'),
 ('Emily', 'Johnson', '555-982-1144'),
@@ -275,9 +275,9 @@ INSERT INTO customer (name, last_name, phone_number) VALUES
 ('Mauricio', 'Zamora', '260-555-7540'),
 ('Sofia', 'Delgado', '260-555-6198');
 
--------------------------------------------------------
--- RESERVATION SAMPLE DATA (142 rows)
--------------------------------------------------------
+/* --------------------------------------------------------
+    - RESERVATION SAMPLE DATA (X142)
+   -------------------------------------------------------- */
 INSERT INTO reservation (time_start, end_time, date) VALUES
 ('2024-07-19 04:38:25.000000', '2024-07-19 07:03:16.000000', '2024-07-19'),
 ('2024-01-22 09:36:40.000000', '2024-01-22 11:49:17.000000', '2024-01-22'),
@@ -422,9 +422,9 @@ INSERT INTO reservation (time_start, end_time, date) VALUES
 ('2025-08-13 09:59:33.000000', '2025-08-13 12:39:20.000000', '2025-08-13'),
 ('2023-11-21 18:24:31.000000', '2023-11-21 20:18:53.000000', '2023-11-21');
 
--------------------------------------------------------
--- CUSTOMER_RESERVATION SAMPLE DATA (90 rows)
--------------------------------------------------------
+/* --------------------------------------------------------
+    - CUSTOMER_RESERVATION SAMPLE DATA (X90)
+   -------------------------------------------------------- */
 INSERT INTO customer_reservation (id_customer, id_reservation, courts_id_court, id_coach) VALUES
 (4, 1, 4, 7),
 (10, 2, 2, 4),
