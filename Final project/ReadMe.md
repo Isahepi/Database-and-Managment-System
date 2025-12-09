@@ -1061,4 +1061,4 @@ DROP TABLE IF EXISTS reservation;
 
 Final poster presentation about Raquet Club
 
-[Poster PDF](poster.pdf)
+[Poster PDF](Poster.pdf)
