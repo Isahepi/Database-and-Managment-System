@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `courts` (
   PRIMARY KEY (`id_court`),
   UNIQUE INDEX `id_court_UNIQUE` (`id_court` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 0
+AUTO_INCREMENT = 0;
 
 -- -----------------------------------------------------
 -- CUSTOMER TABLE
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   PRIMARY KEY (`id_customer`),
   UNIQUE INDEX `id_customer_UNIQUE` (`id_customer` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 0
+AUTO_INCREMENT = 0;
 
 -- -----------------------------------------------------
 -- RESERVATION TABLE
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `date` DATE NOT NULL,
   PRIMARY KEY (`id_reservation`),
   UNIQUE INDEX `id_reservation_UNIQUE` (`id_reservation` ASC) VISIBLE)
-ENGINE = InnoDB
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `db_raquetclub`.`coach`
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `coach` (
   UNIQUE INDEX `coach_last_name_UNIQUE` (`coach_last_name` ASC) VISIBLE,
   UNIQUE INDEX `coach_phone_UNIQUE` (`coach_phone` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 0
+AUTO_INCREMENT = 0;
 
 -- -----------------------------------------------------
 -- CUSTOMER RESERVATION TABLE
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `customer_reservation` (
     REFERENCES `db_raquetclub`.`coach` (`id_coach`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
+ENGINE = InnoDB;
 ```
 
 ---
