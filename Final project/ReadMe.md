@@ -191,10 +191,10 @@ The following SQL insert sample data for the `court` (x4), `customer` (x60), and
 -- COURT SAMPLE DATA (4 rows)
 -------------------------------------------------------
 
-INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('1', 'Tennis', '50');
-INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('2', 'Pickeball', '35');
-INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('3', 'Raquetball', '30');
-INSERT INTO `db_raquetclub`.`courts` (`id_court`, `court_name`, `base_price`) VALUES ('4', 'Paddel', '50');
+INSERT INTO `courts` (`id_court`, `court_name`, `base_price`) VALUES ('1', 'Tennis', '50');
+INSERT INTO `courts` (`id_court`, `court_name`, `base_price`) VALUES ('2', 'Pickeball', '35');
+INSERT INTO `courts` (`id_court`, `court_name`, `base_price`) VALUES ('3', 'Raquetball', '30');
+INSERT INTO `courts` (`id_court`, `court_name`, `base_price`) VALUES ('4', 'Paddel', '50');
 
 -------------------------------------------------------
 -- COACH SAMPLE DATA (8 rows)
