@@ -62,7 +62,7 @@ erDiagram
 ```
 
 ### Database Design Description
-The database db_raquetclub is built around four normalized entities: `coach`, `courts`, `reservation`, and `customer`. Each table stores information related to the reservation of each customer. reservation stores the time, end time, and the date. courts stores the type of court for the sport and the base price. The coach table stores the different coaches available with their personal information such as first and last name and phone number. customer stores the personal information for each customer, and customer_reservation is the main table that stores all the information for a customer's reservation including the time and date, court reserved, name of customer, and whether they need a coach or not.
+The database is built around four normalized entities: `coach`, `courts`, `reservation`, and `customer`. Each table stores information related to the reservation of each customer. reservation stores the time, end time, and the date. courts stores the type of court for the sport and the base price. The coach table stores the different coaches available with their personal information such as first and last name and phone number. customer stores the personal information for each customer, and customer_reservation is the main table that stores all the information for a customer's reservation including the time and date, court reserved, name of customer, and whether they need a coach or not.
 
 A big normalization part in this project was understanding if I could store the customer with its reservation in one table; however, if I would’ve done that, the table would have duplicated customer information.
 
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `db_raquetclub`.`coach`
+-- Table `coach`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `coach` (
   `id_coach` INT NOT NULL AUTO_INCREMENT,
@@ -165,16 +165,16 @@ CREATE TABLE IF NOT EXISTS `customer_reservation` (
   UNIQUE INDEX `id_customer_reservation_UNIQUE` (`id_customer_reservation` ASC) VISIBLE,
   CONSTRAINT `fk_customer_reservation_courts1`
     FOREIGN KEY (`courts_id_court`)
-    REFERENCES `db_raquetclub`.`courts` (`id_court`),
+    REFERENCES `courts` (`id_court`),
   CONSTRAINT `fk_customer_reservation_customer`
     FOREIGN KEY (`id_customer`)
-    REFERENCES `db_raquetclub`.`customer` (`id_customer`),
+    REFERENCES `customer` (`id_customer`),
   CONSTRAINT `fk_customer_reservation_reservation1`
     FOREIGN KEY (`id_reservation`)
-    REFERENCES `db_raquetclub`.`reservation` (`id_reservation`),
+    REFERENCES `reservation` (`id_reservation`),
   CONSTRAINT `fk_customer_reservation_coach1`
     FOREIGN KEY (`id_coach`)
-    REFERENCES `db_raquetclub`.`coach` (`id_coach`)
+    REFERENCES `coach` (`id_coach`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -533,7 +533,7 @@ This query shows the id_customer, courts_id_court, id_reservation, and id_coach 
 -- Query 1: Select customers's reservation including court and if they have a coach or not ordered by id_customer and court type
 
 SELECT id_customer, courts_id_court, id_reservation, id_coach 
-FROM db_raquetclub.customer_reservation
+FROM customer_reservation
 ORDER BY id_customer, courts_id_court
 LIMIT 20;
 
@@ -575,7 +575,7 @@ This query shows the amount of time the reservation was in place. It is used to 
 
 SELECT *,
 TIME_FORMAT(TIMEDIFF(end_time, time_start), '%H:%i') AS duration
-FROM db_raquetclub.reservation;
+FROM reservation;
 ```
 
 **Sample Output**
@@ -618,7 +618,7 @@ SELECT
   day(date) AS "Day", 
   month(date) AS "Month", 
   year(date) AS "Year" 
-FROM db_raquetclub.reservation
+FROM reservation
 LIMIT 20;
 ```
 
@@ -659,7 +659,7 @@ This query displays the total number of reservations made for each client in the
 ```sql
 -- Query 4: Count reservations per customer and show only those with more than 2 reservations
 SELECT id_customer, COUNT(id_reservation) AS total_reservations
-FROM db_raquetclub.customer_reservation
+FROM customer_reservation
 GROUP BY id_customer
 HAVING COUNT(id_reservation) > 2;
 ```
@@ -704,7 +704,7 @@ SELECT
   c.court_name, 
   c.base_price, 
   CONCAT(d.coach_name, " ", d.coach_last_name) AS "Coach" 
-  FROM db_raquetclub.customer_reservation AS a 
+  FROM customer_reservation AS a 
 JOIN customer AS b ON a.id_customer = b.id_customer
 JOIN courts AS c ON a.courts_id_court = c.id_court
 JOIN coach AS d ON a.id_coach = d.id_coach
@@ -755,7 +755,7 @@ SELECT
   c.court_name, 
   c.base_price, 
   CONCAT(d.coach_name, " ", d.coach_last_name) AS "Coach" 
-  FROM db_raquetclub.customer_reservation AS a 
+  FROM customer_reservation AS a 
 LEFT JOIN customer AS b ON a.id_customer = b.id_customer
 LEFT JOIN courts AS c ON a.courts_id_court = c.id_court
 LEFT JOIN coach AS d ON a.id_coach = d.id_coach
@@ -850,7 +850,7 @@ SELECT
   c.base_price, 
   CONCAT(d.coach_name, " ", d.coach_last_name) AS "Coach",
   e.date AS "Reservation_Date"
-FROM db_raquetclub.customer_reservation AS a
+FROM customer_reservation AS a
 JOIN customer AS b ON a.id_customer = b.id_customer
 JOIN courts AS c ON a.courts_id_court = c.id_court
 JOIN coach AS d ON a.id_coach = d.id_coach
