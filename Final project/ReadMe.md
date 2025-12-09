@@ -575,7 +575,8 @@ This query shows the amount of time the reservation was in place. It is used to 
 
 SELECT *,
 TIME_FORMAT(TIMEDIFF(end_time, time_start), '%H:%i') AS duration
-FROM reservation;
+FROM reservation
+LIMIT 20;
 ```
 
 **Sample Output**
@@ -716,26 +717,26 @@ LIMIT 20;
 +----------------+--------------------+------------+------------+------------------+
 | id_reservation | Customer           | court_name | base_price | Coach            |
 +----------------+--------------------+------------+------------+------------------+
-|              4 | Owen Wright        | Raquetball | 30         | Michael Thompson |
+|              3 | Benjamin Taylor    | Tennis     | 50         | Sophia Martinez  |
 |             15 | Sophia Wilson      | Tennis     | 50         | Michael Thompson |
-|             18 | Ethan Harris       | Raquetball | 30         | Michael Thompson |
-|             22 | Henry Lee          | Pickeball  | 35         | Michael Thompson |
 |             27 | Charlotte Perez    | Tennis     | 50         | Michael Thompson |
+|             28 | Matthew Lewis      | Tennis     | 50         | Jonathan Kim     |
+|             34 | Ethan Harris       | Tennis     | 50         | Ethan Walker     |
 |             38 | Sebastian Young    | Tennis     | 50         | Michael Thompson |
+|             39 | Jack Allen         | Tennis     | 50         | David Ramirez    |
+|             42 | Harper Sanchez     | Tennis     | 50         | Laura Gonzalez   |
+|             43 | Lucas Jackson      | Tennis     | 50         | Jonathan Kim     |
+|             46 | Harper Sanchez     | Tennis     | 50         | Jonathan Kim     |
+|             51 | Emma Thomas        | Tennis     | 50         | Emily Stevens    |
+|             52 | Camila King        | Tennis     | 50         | Laura Gonzalez   |
 |             54 | Ella Walker        | Tennis     | 50         | Michael Thompson |
 |             56 | Matthew Lewis      | Tennis     | 50         | Michael Thompson |
-|             57 | Leo Torres         | Raquetball | 30         | Michael Thompson |
-|             62 | Daniel Miller      | Raquetball | 30         | Michael Thompson |
-|             68 | Ava Moore          | Raquetball | 30         | Michael Thompson |
-|              7 | James Anderson     | Raquetball | 30         | Laura Gonzalez   |
-|             30 | Matthew Lewis      | Paddel     | 50         | Laura Gonzalez   |
-|             31 | Ella Walker        | Raquetball | 30         | Laura Gonzalez   |
-|             35 | Lucas Jackson      | Pickeball  | 35         | Laura Gonzalez   |
-|             42 | Harper Sanchez     | Tennis     | 50         | Laura Gonzalez   |
-|             52 | Camila King        | Tennis     | 50         | Laura Gonzalez   |
-|             58 | Olivia Davis       | Paddel     | 50         | Laura Gonzalez   |
-|             60 | Emily Johnson      | Raquetball | 30         | Laura Gonzalez   |
+|             61 | Emily Johnson      | Tennis     | 50         | Ethan Walker     |
 |             63 | Alexander Thompson | Tennis     | 50         | Laura Gonzalez   |
+|             67 | Luna Ramirez       | Tennis     | 50         | Emily Stevens    |
+|             69 | Aria Hall          | Tennis     | 50         | Sophia Martinez  |
+|              2 | Ava Moore          | Pickeball  | 35         | Sophia Martinez  |
+|              5 | Aria Hall          | Pickeball  | 35         | Emily Stevens    |
 +----------------+--------------------+------------+------------+------------------+
 20 rows in set (0.00 sec)
 ```
@@ -952,9 +953,7 @@ FROM courts;
 
 **Sample Output**
 ```code
--- Demostrate a transaction with rollback
--- Check original prices
-
+mysql> -- Query 10: Demostrate original prices
 mysql> SELECT *
     -> FROM courts;
 +----------+------------+------------+
@@ -966,11 +965,21 @@ mysql> SELECT *
 |        4 | Paddel     | 50         |
 +----------+------------+------------+
 4 rows in set (0.00 sec)
+
+mysql>
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> -- Increase the base price by 5%
 mysql> UPDATE courts
     -> SET base_price = base_price * 1.05
     -> WHERE id_court = 2 OR id_court = 3;
-Query OK, 2 row affected (0.001 sec)
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
 
+mysql>
+mysql> -- See the change value inside the transaction
 mysql> SELECT *
     -> FROM courts;
 +----------+------------+------------+
@@ -983,10 +992,15 @@ mysql> SELECT *
 +----------+------------+------------+
 4 rows in set (0.00 sec)
 
+mysql>
+mysql> -- Undo the change
 mysql> ROLLBACK;
-Query OK, 2 rows affected (0.00 sec)
+Query OK, 0 rows affected (0.04 sec)
 
-mysql> SELECT * from courts;
+mysql>
+mysql> -- Confirm the values are back to original
+mysql> SELECT *
+    -> FROM courts;
 +----------+------------+------------+
 | id_court | court_name | base_price |
 +----------+------------+------------+
